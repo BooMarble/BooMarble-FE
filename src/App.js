@@ -14,7 +14,7 @@ import MyPage from "./pages/mypage";
 import Review from "./pages/review";
 import ReviewDetail from "./pages/reviewDetail";
 import ReviewPosting from "./pages/reviewPosting";
-import textDataPage from "./pages/textDataPage";
+import TextDataPage from "./pages/textDataPage";
 
 function App() {
   return (
