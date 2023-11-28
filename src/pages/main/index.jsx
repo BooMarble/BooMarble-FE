@@ -1,5 +1,5 @@
 import Body from "./body";
-import Header from "../header/body"
+import Header from "../../style/global/header/body";
 function Main() {
     return(
         <div>
