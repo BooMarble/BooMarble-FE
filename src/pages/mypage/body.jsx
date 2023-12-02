@@ -1,6 +1,9 @@
+import { Link } from 'react-router-dom';
 function Body() {
     return(
-        <p>부마블</p>
+        <div>
+        <Link to='../login/'>로그인 페이지</Link>
+        </div>
     )
 }
 
