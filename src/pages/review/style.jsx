@@ -45,7 +45,7 @@ export const ReviewBody = styled.div`
                 position: absolute;
                 top: 100%;
                 background-color: #eeeeee;
-                transform: translate(-11%, -850%);
+                transform: translate(-14%, -880%);
                 border-radius: 5px;
                 padding: 10px;
                 margin-left: 10px;
@@ -89,7 +89,7 @@ export const ReviewBody = styled.div`
                 position: absolute;
                 top: 100%;
                 background-color: #eeeeee;
-                transform: translate(-39%, -850%);
+                transform: translate(-41%, -880%);
                 border-radius: 5px;
                 padding: 10px;
                 margin-left: 10px;
@@ -133,7 +133,7 @@ export const ReviewBody = styled.div`
                 position: absolute;
                 top: 100%;
                 background-color: #eeeeee;
-                transform: translate(-66%, -850%);
+                transform: translate(-68%, -880%);
                 border-radius: 5px;
                 padding: 10px;
                 margin-left: 10px;
@@ -343,18 +343,18 @@ export const ReviewBody = styled.div`
         }
     }
 
-button{
-    border: 2px solid #dcdcdc;
-    background-color: white;
-    border-radius: 15px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-left: 10px;
-    padding-right: 10px;
-    display: block;
-    margin: 0 auto;
-    margin-top: 50px;
-}
+    button{
+        border: 2px solid #dcdcdc;
+        background-color: white;
+        border-radius: 15px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 10px;
+        padding-right: 10px;
+        display: block;
+        margin: 0 auto;
+        margin-top: 50px;
+    }
 
     
 `
