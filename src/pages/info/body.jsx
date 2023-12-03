@@ -1,79 +1,75 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-function Body() {
-  // 데이터
-  const universityInfoLists = [
-    {
-      "universityName": "미국대학교",
-      "universityCountry": "미국",
-      "universityType": "교환학생"
-    },
-    {
-      "universityName": "하버드대학교",
-      "universityCountry": "미국",
-      "universityType": "교환학생"
-    },
-    //... (나머지 데이터)
-  ];
+const InformationPageBody = () => {
+  const [country, setCountry] = useState('');
+  const [type, setType] = useState('');
+  const [university, setUniversity] = useState('');
+  const [universityInfoLists, setUniversityInfoLists] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // 선택한 값들을 저장할 상태 변수들
-  const [selectedCountry, setSelectedCountry] = useState('');
-  const [selectedUniversity, setSelectedUniversity] = useState('');
-  const [selectedUniversityType, setSelectedUniversityType] = useState('');
-  const [filteredUniversities, setFilteredUniversities] = useState([]);
+  useEffect(() => {
+    fetchUniversityInfo();
+  }, [country, type, university]);
 
-  // 국가 선택 시
-  const handleCountryChange = (e) => {
-    const country = e.target.value;
-    setSelectedCountry(country);
+  const fetchUniversityInfo = async () => {
+    setLoading(true);
+    try {
+      // Construct the URL based on selected filters
+      let apiUrl = `http://boomarvel.com/info`;
+      if (country || type || university) {
+        apiUrl += `?`;
+        if (country) apiUrl += `country=${country}&`;
+        if (type) apiUrl += `type=${type}&`;
+        if (university) apiUrl += `university=${university}&`;
+      }
 
-    // 해당 국가의 대학 목록 필터링
-    const filtered = universityInfoLists.filter(
-      (uni) => uni.universityCountry === country
-    );
-    setFilteredUniversities(filtered);
-    setSelectedUniversity('');
-    setSelectedUniversityType('');
-  };
+      // Fetch data using axios with the token in headers
+      const response = await axios.get(apiUrl, {
+        headers: {
+          'X-AUTH-TOKEN': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMUBnbWFpbC5jb20iLCJyb2xlcyI6WyJVU0VSIl0sImlhdCI6MTcwMTU4NzYwOCwiZXhwIjoxNzAyMTkyNDA4fQ.mpDHqhkVl5DUepfqFPiKo_8LEqjumhLaohAegdlAqTk'
+        }
+      });
 
-  // 대학 선택 시
-  const handleUniversityChange = (e) => {
-    const university = e.target.value;
-    setSelectedUniversity(university);
-  };
-
-  // 선발 유형 선택 시
-  const handleUniversityTypeChange = (e) => {
-    const type = e.target.value;
-    setSelectedUniversityType(type);
+      // Set the fetched data to state
+      setUniversityInfoLists(response.data.universityInfoLists);
+      console.log(response.data)
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching university info:', error);
+      setLoading(false);
+    }
   };
 
   return (
     <div>
-      <select value={selectedCountry} onChange={handleCountryChange}>
-        <option value="">국가 선택</option>
-        {/* 국가 목록을 추가하세요 */}
+      {/* Select boxes for country, type, and university */}
+      <select value={country} onChange={(e) => setCountry(e.target.value)}>
+        {/* Options for countries */}
       </select>
-      <select value={selectedUniversity} onChange={handleUniversityChange}>
-        <option value="">대학 선택</option>
-        {filteredUniversities.map((uni, index) => (
-          <option key={index} value={uni.universityName}>{uni.universityName}</option>
-        ))}
+      <select value={type} onChange={(e) => setType(e.target.value)}>
+        {/* Options for types */}
       </select>
-      <select value={selectedUniversityType} onChange={handleUniversityTypeChange}>
-        <option value="">선발 유형 선택</option>
-        {/* 선발 유형 목록을 추가하세요 */}
+      <select value={university} onChange={(e) => setUniversity(e.target.value)}>
+        {/* Options for universities */}
       </select>
-      <div>
-        <h2>대학 목록</h2>
-        <ul>
-          {filteredUniversities.map((uni, index) => (
-            <li key={index}>{uni.universityName}</li>
+
+      {/* Display fetched university info */}
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <div>
+          {universityInfoLists.map((info, index) => (
+            <div key={index}>
+              <p>University Name: {info.universityName}</p>
+              <p>Country: {info.universityCountry}</p>
+              <p>Type: {info.universityType}</p>
+            </div>
           ))}
-        </ul>
-      </div>
+        </div>
+      )}
     </div>
   );
-}
+};
 
-export default Body;
+export default InformationPageBody;
