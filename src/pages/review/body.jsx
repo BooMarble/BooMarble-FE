@@ -2,7 +2,7 @@ import { ReviewBody } from "./style";
 import useInput from "../../hooks/useInput";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-// import { getReviewInfo } from "../../apis/reviewApi/apis";
+import { getReviewInfo } from "../../apis/reviewApi/apis";
 
 function Body() {
 
@@ -130,80 +130,69 @@ function Body() {
         console.log(`선택된 항목: ${item}`);
     }
 
-    // // review 가져오기
-    // const navigate = useNavigate();
-    // const [review, setReview] = useState('');
-    // const findReviewInfo = async () => {
-    //     //정상 접근시
-    //     try {
-    //         // const reviewInfo = await getReviewInfo();
-    //         // setReview(reviewInfo);
-    //         setReview([
-    //             [
-    //                 {
-    //                     "reviewId" : 1,
-    //                     "universityName" : "도쿄대학교",
-    //                     "reviewCount" : 3,
-    //                     "countryName" : "일본",
-    //                     "categoryName" : "7+1"
-    //                 }
-    //             ]
-    //         ])
-    //     } catch (err) {
-    //         // 비정상 접근시
-    //     }
-    // }
+    // review 가져오기
+    const navigate = useNavigate();
+    const [review, setReview] = useState('');
+    const findReviewInfo = async () => {
+        //정상 접근시
+        try {
+            const reviewInfo = await getReviewInfo();
+            setReview(reviewInfo);
+        } catch (err) {
+            // 비정상 접근시
+            console.log(err)
+        }
+    }
+    
+    useEffect(() => {
+        // review 불러오기
+        findReviewInfo();
+    }, []);
 
-    // // review 띄우기
-    // const setReviews = (numberOfReviewNumber) => {
-    //     let reviewBox= document.getElementById('reviewBox');
-    //     if (reviewBox) {
-    //         // 초기화
-    //         reviewBox.innerHTML = '';
-    //         if (numberOfReviewNumber == 0) {
-    //             reviewBox.innerHTML = `
-    //             <div style="display: flex; justify-content: center; align-items: center; height: 100vh; text-align: center;">
-    //             <p3 id="noreview" style="font-size: 18px; color: #dcdcdc;">아직 후기가 없어요</p3>
-    //             </div>
-    //             `; 
-    //         } else {
-    //             for (let i=numberOfReviewNumber - 1; i >= 0; i--) {
-    //                 // 이전까지의 피드
-    //                 const prev = reviewBox.innerHTML;
+    // review 띄우기
+    const setReviews = (numberOfReviewNumber) => {
+        let reviewBox= document.getElementById('reviewBox');
+        if (reviewBox) {
+            // 초기화
+            reviewBox.innerHTML = '';
+            if (numberOfReviewNumber == 0) {
+                reviewBox.innerHTML = `
+                <div style="display: flex; justify-content: center; align-items: center; height: 100vh; text-align: center;">
+                <p3 id="noreview" style="font-size: 18px; color: #dcdcdc;">아직 후기가 없어요</p3>
+                </div>
+                `; 
+            } else {
+                for (let i=0; i < numberOfReviewNumber; i++) {
+                    // 이전까지의 피드
+                    const prev = reviewBox.innerHTML;
 
-    //                 // 새로 추가될 피드
-    //                 const reviewId = review[i].reviewId;
-    //                 const universityName = review[i].university;
-    //                 const reviewCount = review[i].reviewCount;
-    //                 const countryName = review[i].country;
-    //                 const categoryName = review[i].category;
+                    // 새로 추가될 피드
+                    const reviewId = i;
+                    const universityName = review[i].universityName;
+                    const reviewCount = review[i].universityReviewCnt;
+                    const countryName = review[i].universityCountry;
+                    const categoryName = review[i].universityType;
 
-    //                 // 게시물 렌더링
-    //                 reviewBox = prev + `
-    //                 <div id=${reviewId}>
-    //                     <p>${universityName}</p>
-    //                     <p>${reviewCount}</p>
-    //                     <p># ${countryName}</p>
-    //                     <p># ${categoryName}</p>
-    //                 </div>
-    //                 `;
-    //             }
-    //         }
-    //     }
-    // }
-    // // // review에 뭔가가 들어있으면
-    // // if (review) {
-    // //     const numberOfReviewNumber = review.length;
-    // //     setReviews(numberOfReviewNumber)
-    // // }
-
-    // // review에 뭔가가 들어있으면
-    // useEffect(() => {
-    //     if (review) {
-    //         const numberOfReviewNumber = review.length;
-    //         setReviews(numberOfReviewNumber);
-    //     }
-    // }, [review]); // review가 변경될 때마다 호출
+                    // 게시물 렌더링
+                    reviewBox.innerHTML = prev + `
+                    <div id=${reviewId}>
+                        <p>${universityName}</p>
+                        <p>리뷰 ${reviewCount}</p>
+                        <div>
+                            <p>#${countryName}</p>
+                            <p>#${categoryName}</p>
+                        </div>
+                    </div>
+                    `;
+                }
+            }
+        }
+    }
+    // review에 뭔가가 들어있으면
+    if (review.length > 0) {
+        const numberOfReviewNumber = review.length;
+        setReviews(numberOfReviewNumber);
+    }
 
     // // 후기 쓰러 가기 버튼 누를 시
     // const handleOnClickPosting = () => {
@@ -214,6 +203,7 @@ function Body() {
     //     // review 불러오기
     //     findReviewInfo();
     // }, []);
+
 
     // // reviewBox 클릭 시
     // const handleOnClick = async (e) => {
@@ -229,12 +219,12 @@ function Body() {
 
     return(
         <ReviewBody>
-            <input
+            {/* <input
                 id="searchInput"
                 type="text"
                 placeholder="검색"
                 // onChange={onChangeSearchContent}
-            />
+            /> */}
             <div id="dropdownContainer">
                 <div id="country">
                     <p onClick={isCountryOpen ? closeCountry : openCountry}>
@@ -245,7 +235,7 @@ function Body() {
                             <input
                                 id="searchInput"
                                 type="text"
-                                placeholder="검색"
+                                placeholder="국가를 검색하세요"
                                 // onChange={onChangeCountry}
                             />                            
                             <div id="countryList">
@@ -270,7 +260,7 @@ function Body() {
                             <input
                                 id="searchInput"
                                 type="text"
-                                placeholder="검색"
+                                placeholder="대학을 검색하세요"
                                 // onChange={onChangeUniversity}
                             />
                             <div id="universityList">
@@ -295,7 +285,7 @@ function Body() {
                             <input
                                 id="searchInput"
                                 type="text"
-                                placeholder="검색"
+                                placeholder="선발유형을 검색하세요"
                                 // onChange={onChangeSelectionCategory}
                             />
                             <div id="selectionCategoryList">
@@ -323,32 +313,7 @@ function Body() {
                         </div>
                     )}
             </div>            
-            <div id="reviewBox">
-                <div id="firstUniv">
-                    <p>도쿄대학교</p>
-                    <p>리뷰 10</p>
-                    <div id="firstTags">
-                        <p>#일본</p>
-                        <p>#7+1</p>
-                    </div>
-                </div>
-                <div id="secondUniv">
-                    <p>하버드대학교</p>
-                    <p>리뷰 10</p>
-                    <div id="secondTags">
-                        <p>#말레이시아</p>
-                        <p>#7+1</p>
-                    </div>
-                </div>
-                <div id="thirdUniv">
-                    <p>예일대학교</p>
-                    <p>리뷰 10</p>
-                    <div id="secondTags">
-                        <p>#말레이시아</p>
-                        <p>#7+1</p>
-                    </div>
-                </div>
-            </div>
+            <div id="reviewBox"></div>
             <button>후기 쓰러 가기✏</button>
         </ReviewBody>
         

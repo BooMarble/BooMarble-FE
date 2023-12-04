@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const ReviewBody = styled.div`
     max-width: 500px;
+    z-index: 1;
 
     #searchInput{
         width: 350px;
@@ -43,12 +44,13 @@ export const ReviewBody = styled.div`
                 width: 300px;
                 height: 20px;
                 position: absolute;
-                top: 100%;
+                top: 105%;
                 background-color: #eeeeee;
                 transform: translate(-14%, -880%);
                 border-radius: 5px;
                 padding: 10px;
                 margin-left: 10px;
+                z-index: 4;
             }
 
             #countryList {
@@ -62,8 +64,12 @@ export const ReviewBody = styled.div`
                 width: 300px;
                 height: 200px;
                 overflow: scroll;
+                z-index: 3;
                 p:nth-child(1){
-                    padding: 0;
+                    padding-top: 20px;
+                    padding-bottom: 0;
+                    padding-left: 0;
+                    padding-right: 0;
                     margin-top: 0;
                 }
             }
@@ -87,13 +93,16 @@ export const ReviewBody = styled.div`
                 width: 300px;
                 height: 20px;
                 position: absolute;
-                top: 100%;
+                top: 105% !important;
                 background-color: #eeeeee;
                 transform: translate(-41%, -880%);
                 border-radius: 5px;
                 padding: 10px;
                 margin-left: 10px;
-            }
+                z-index: 4;
+                border:none;
+                font-size: 100%;
+            }            
 
             #universityList {
                 position: absolute;
@@ -106,8 +115,12 @@ export const ReviewBody = styled.div`
                 width: 300px;
                 height: 200px;
                 overflow: scroll;
+                z-index: 3;
                 p:nth-child(1){
-                    padding: 0;
+                    padding-top: 20px;
+                    padding-bottom: 0;
+                    padding-left: 0;
+                    padding-right: 0;
                     margin-top: 0;
                 }
             }
@@ -127,16 +140,20 @@ export const ReviewBody = styled.div`
                
         #selectionCategoryBox{
             transition: transform 1s ease-in-out;
+            
             input{
                 width: 300px;
                 height: 20px;
                 position: absolute;
-                top: 100%;
+                top: 105%;
                 background-color: #eeeeee;
                 transform: translate(-68%, -880%);
                 border-radius: 5px;
                 padding: 10px;
                 margin-left: 10px;
+                z-index: 4;
+                border:none;
+                font-size: 100%;
             }
 
             #selectionCategoryList {
@@ -150,8 +167,12 @@ export const ReviewBody = styled.div`
                 width: 300px;
                 height: 200px;
                 overflow: scroll;
+                z-index: 3;
                 p:nth-child(1){
-                    padding: 0;
+                    padding-top: 20px;
+                    padding-bottom: 0;
+                    padding-left: 0;
+                    padding-right: 0;
                     margin-top: 0;
                 }
             }
@@ -160,6 +181,7 @@ export const ReviewBody = styled.div`
     }
 
     #sorting{
+        position: relative;
         display: flex;
         justify-content: right;
         p:nth-child(1){
@@ -193,157 +215,68 @@ export const ReviewBody = styled.div`
     }
 
     #reviewBox{
-        #firstUniv{
+        margin: 0 auto;
+        height: 530px;
+        margin-left: 15px;
+        margin-right: 15px;
+        overflow: scroll;
+        div{
             padding-top: 5px;
             padding-bottom: 5px;
             padding-left: 10px;
             padding-right: 10px;
             background-color: #eeeeee;
             border-radius: 10px;
-            margin-left: 15px;
-            margin-right: 15px;
-            margin-top: 15px;           
-        }
-        #firstUniv > p:nth-child(1){
-            font-size: 150%;
-            font-weight: bold;
-            margin: 0;
-            padding-top: 15px;
-            padding-bottom: 0;
-            padding-left: 15px;
-            padding-right: 15px;
-        }
-        #firstUniv > p:nth-child(2){
-            font-size: 90%;
-            margin-left: 70%;
-            margin-top: 0;
-            margin-bottom: 0;
-            background-color: #dcdcdc;
-            border-radius: 13px;
-            padding-top: 5px;
-            padding-bottom: 5px;
-            padding-left: 10px;
-            margin-right: 25px;
-        }
-        #firstTags{
-            display: flex;
-            flex-direction: row;
-            margin-bottom: 15px;
-            margin-left: 15px;
-        }
-        #firstTags > p:nth-child(1){
-            font-weight: normal;
-            font-size: 100%;
-            margin-right: 10px;
-            margin-top: 0;
-            margin-bottom: 0; 
-        }
-        #firstTags > p:nth-child(2){
-            margin: 0;
-            font-size: 100%;
-        }
+            margin-top: 15px;
 
-        #secondUniv{
-            padding-top: 5px;
-            padding-bottom: 5px;
-            padding-left: 10px;
-            padding-right: 10px;
-            background-color: #eeeeee;
-            border-radius: 10px;
-            margin-left: 15px;
-            margin-right: 15px;
-            margin-top: 15px;     
-        }
-        #secondUniv > p:nth-child(1){
-            font-size: 150%;
-            font-weight: bold;
-            margin: 0;
-            padding-top: 15px;
-            padding-bottom: 0;
-            padding-left: 15px;
-            padding-right: 15px;
-        }
-        #secondUniv > p:nth-child(2){
-            font-size: 90%;
-            margin-left: 70%;
-            margin-top: 0;
-            margin-bottom: 0;
-            background-color: #dcdcdc;
-            border-radius: 13px;
-            padding-top: 5px;
-            padding-bottom: 5px;
-            padding-left: 10px;
-            margin-right: 25px;
-        }
-        #secondTags{
-            display: flex;
-            flex-direction: row;
-            margin-bottom: 15px;
-            margin-left: 15px;
-        }
-        #secondTags > p:nth-child(1){
-            font-weight: normal;
-            font-size: 100%;
-            margin-right: 10px;
-            margin-top: 0;
-            margin-bottom: 0; 
-        }
-        #secondTags > p:nth-child(2){
-            margin: 0;
-            font-size: 100%;
-        }
-        #thirdUniv{
-            padding-top: 5px;
-            padding-bottom: 5px;
-            padding-left: 10px;
-            padding-right: 10px;
-            background-color: #eeeeee;
-            border-radius: 10px;
-            margin-left: 15px;
-            margin-right: 15px;
-            margin-top: 15px;   
-        }
-        #thirdUniv > p:nth-child(1){
-            font-size: 150%;
-            font-weight: bold;
-            margin: 0;
-            padding-top: 15px;
-            padding-bottom: 0;
-            padding-left: 15px;
-            padding-right: 15px;
-        }
-        #thirdUniv > p:nth-child(2){
-            font-size: 90%;
-            margin-left: 70%;
-            margin-top: 0;
-            margin-bottom: 0;
-            background-color: #dcdcdc;
-            border-radius: 13px;
-            padding-top: 5px;
-            padding-bottom: 5px;
-            padding-left: 10px;
-            margin-right: 25px;            
-        }
-        #thirdTags{
-            display: flex;
-            flex-direction: row;
-            margin-bottom: 15px;
-            margin-left: 15px;
-        }
-        #thirdTags > p:nth-child(1){
-            font-weight: normal;
-            font-size: 100%;
-            margin-right: 10px;
-            margin-top: 0;
-            margin-bottom: 0;             
-        }
-        #thirdTags > p:nth-child(2){
-            margin: 0;
-            font-size: 100%;            
+            p:nth-child(1){
+                font-size: 150%;
+                font-weight: bold;
+                margin: 0;
+                padding-top: 15px;
+                padding-bottom: 0;
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+            p:nth-child(2){
+                width: 55px;
+                font-size: 90%;
+                margin-left: 70%;
+                margin-top: 0;
+                margin-bottom: 0;
+                background-color: #dcdcdc;
+                border-radius: 13px;
+                padding-top: 5px;
+                padding-bottom: 5px;
+                padding-left: 10px;             
+            }
+            div:nth-child(3){
+                display: flex;
+                flex-direction: row;
+                margin-bottom: 15px;
+                margin-left: 15px;   
+                margin-top: 3px; 
+            }
+            div:nth-child(3) p:nth-child(1) {
+                    font-weight: normal;
+                    font-size: 100%;
+                    margin-right: 10px;
+                    margin-top: 0;
+                    margin-bottom: 0; 
+                    padding: 0;   
+            }
+            div:nth-child(3) p:nth-child(2){
+                    margin: 0;
+                    font-size: 100%;
+                    background-color: transparent;
+                    padding: 0;
+                    width: calc((100% - 10px)* 0.6);
+            }
         }
     }
-
-    button{
+    button {
+        position: relative;
+        z-index: 2;
         border: 2px solid #dcdcdc;
         background-color: white;
         border-radius: 15px;
@@ -353,8 +286,7 @@ export const ReviewBody = styled.div`
         padding-right: 10px;
         display: block;
         margin: 0 auto;
-        margin-top: 50px;
+        margin-top: 0;
+        margin-bottom: 50px;
     }
-
-    
 `

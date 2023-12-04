@@ -2,6 +2,7 @@ import { ReviewDetailBody } from "./style";
 import { useState } from "react";
 import notScrapBtn from "../../assets/images/notScrapBtn.png";
 import scrapBtn from "../../assets/images/scrapBtn.png";
+import { useNavigate } from "react-router-dom";
 
 function Body() {
     // 기숙사/숙소 드롭다운 상태를 관리하는 state
@@ -33,6 +34,11 @@ function Body() {
         setScrapOpen(false)
     }
 
+    const navigate = useNavigate();
+    const handleOnClick = () => {
+        navigate(`/textDataPage`);
+    }
+
     return(
         <ReviewDetailBody>
             <div id="generalInfo">
@@ -54,7 +60,7 @@ function Body() {
                     )}
             </div>
             <div id="uniqueInfo1">
-                <p><br />출국 전 준비사항</p>
+                <p onClick={handleOnClick}><br />출국 전 준비사항</p>
                 <p><br />파견 대학 관련</p>
                 <p><br />수강<br />교과목<br />리스트</p>
                 <p><br />교내<br />활동</p>
