@@ -1,75 +1,37 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { getInfo } from '../../apis/infoApi/apis'; // getInfo 함수를 가져오는 경로를 정확하게 지정해주세요.
 
-const InformationPageBody = () => {
-  const [country, setCountry] = useState('');
-  const [type, setType] = useState('');
-  const [university, setUniversity] = useState('');
-  const [universityInfoLists, setUniversityInfoLists] = useState([]);
-  const [loading, setLoading] = useState(true);
+const Body = () => {
+  const [universityInfo, setUniversityInfo] = useState([]);
 
   useEffect(() => {
-    fetchUniversityInfo();
-  }, [country, type, university]);
-
-  const fetchUniversityInfo = async () => {
-    setLoading(true);
-    try {
-      // Construct the URL based on selected filters
-      let apiUrl = `http://boomarvel.com/info`;
-      if (country || type || university) {
-        apiUrl += `?`;
-        if (country) apiUrl += `country=${country}&`;
-        if (type) apiUrl += `type=${type}&`;
-        if (university) apiUrl += `university=${university}&`;
+    const fetchData = async () => {
+      try {
+        const info = await getInfo(); // getInfo 함수를 사용하여 정보를 받아옴
+        setUniversityInfo(info); // 받아온 정보를 상태에 설정
+      } catch (error) {
+        console.error('Error fetching university information:', error);
       }
+    };
 
-      // Fetch data using axios with the token in headers
-      const response = await axios.get(apiUrl, {
-        headers: {
-          'X-AUTH-TOKEN': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMUBnbWFpbC5jb20iLCJyb2xlcyI6WyJVU0VSIl0sImlhdCI6MTcwMTU4NzYwOCwiZXhwIjoxNzAyMTkyNDA4fQ.mpDHqhkVl5DUepfqFPiKo_8LEqjumhLaohAegdlAqTk'
-        }
-      });
-
-      // Set the fetched data to state
-      setUniversityInfoLists(response.data.universityInfoLists);
-      console.log(response.data)
-      setLoading(false);
-    } catch (error) {
-      console.error('Error fetching university info:', error);
-      setLoading(false);
-    }
-  };
+    fetchData();
+  }, []);
 
   return (
-    <div>
-      {/* Select boxes for country, type, and university */}
-      <select value={country} onChange={(e) => setCountry(e.target.value)}>
-        {/* Options for countries */}
-      </select>
-      <select value={type} onChange={(e) => setType(e.target.value)}>
-        {/* Options for types */}
-      </select>
-      <select value={university} onChange={(e) => setUniversity(e.target.value)}>
-        {/* Options for universities */}
-      </select>
-
-      {/* Display fetched university info */}
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <div>
-          {universityInfoLists.map((info, index) => (
-            <div key={index}>
-              <p>University Name: {info.universityName}</p>
-              <p>Country: {info.universityCountry}</p>
-              <p>Type: {info.universityType}</p>
-            </div>
-          ))}
-        </div>
-      )}
+    <div className="university-info">
+      <h2>School Information</h2>
+      <ul>
+        {/* 받아온 학교 정보를 간단한 목록으로 표시 */}
+        {universityInfo.map((info, index) => (
+          <li key={index}>
+            <p>Name: {info.universityName}</p>
+            <p>Country: {info.universityCountry}</p>
+            <p>Type: {info.universityType}</p>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
 
-export default InformationPageBody;
+export default Body;
