@@ -1,72 +1,181 @@
-// import { ReviewBody } from "./style";
 import useInput from "../../hooks/useInput";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getReviewInfo } from "../../apis/reviewApi/apis";
+import { getPostInfo, getSearchInfo } from "../../apis/communityApi/apis";
 import { CommunityBody } from "./style";
 
 function Body() {
+    // // 검색 구현
+    // const [searchContent, onChangeSearchContent, setSearchContent] = useInput('');
+    // const findSearchInfo = async () => {
+    //     const post = await getSearchInfo(searchContent);
+    //     setPost(post);
+    // }
+    // if (searchContent) {
+    //     findSearchInfo(); 
+    // }
 
-    // review 가져오기
+    // // 검색어 자동완성 기능 구현
+    // // 사용자가 검색한 내용
+    // const [searchContent, onChangeSearchContent, setSearchContent] = useInput(''); 
+    // // 자동완성 검색 결과 리스트 (최다 검색/최다 태그 순으로 올 것 같음)
+    // const [searchResults, setSearchResults] = useState([]);
+    // // 드롭다운 열고 닫을 state -> false이면 드롭다운 닫고, true이면 드롭다운 열고
+    // const [showDropdown, setShowDropdown] = useState(false);
+
+    // // 검색 내용이 있으면 호출
+    // const findSearchInfo = async () => {
+    //     // 자동완성 검색 결과를 받아와서 
+    //     const results = await getSearchInfo(searchContent);
+    //      // 드롭다운 열고
+    //     setShowDropdown(true);
+    //     // searchResults 업데이트
+    //     setSearchResults(results);
+    // }
+    // if (searchContent) {
+    //     findSearchInfo();
+    // }
+
+    // // 드롭다운에서 특정 검색어를 선택하면 호출
+    // const handleResultClick = (result) => {
+    //     // 그게 검색창에 검색어로 입력되고
+    //     setSearchContent(result);
+    //     // 드롭다운은 꺼짐
+    //     setShowDropdown(false);
+    // };
+
+    // useEffect(() => {
+    //     if (searchContent) {
+    //     findSearchInfo();
+    //     } else {
+    //     setShowDropdown(false);
+    //     }
+    // }, [searchContent]);
+
+    // 정렬 방식 선택
+    // 정렬 드롭다운 상태를 관리하는 state
+    const [isSortingOpen, setSortingOpen] = useState(false)
+
+    // 정렬 드롭다운 여는 함수
+    function openSorting(){
+        setSortingOpen(true)
+    }
+
+    // 정렬 드롭다운 닫는 함수
+    function closeSorting(){
+        setSortingOpen(false)
+    }
+
+    // 정렬 드롭다운 항목 선택 시 처리할 함수
+    function handleSortingClick(item){
+        console.log(`선택된 항목: ${item}`);
+    }
+
+    // post 가져오기
     const navigate = useNavigate();
-    const [review, setReview] = useState([]);
+    const [post, setPost] = useState([]);
 
-    const findReviewInfo = async () => {
+    const findPostInfo = async () => {
         //정상 접근시
         try {
-            const reviewInfo = await getReviewInfo();
-            setReview(reviewInfo);
+            const postInfo = await getPostInfo();
+            setPost(postInfo);
         } catch (err) {
             // 비정상 접근시
             console.log(err)
         }
     }
 
-    // review 띄우기
-    const setReviews = (numberOfReviewNumber) => {
-        let reviewBox= document.getElementById('reviewBox');
-        if (reviewBox) {
+    // post 띄우기
+    const setPosts = (numberOfPostNumber) => {
+        let postBox= document.getElementById('postBox');
+        if (postBox) {
             // 초기화
-            reviewBox.innerHTML = '';
-            for (let i=0; i < numberOfReviewNumber; i++) {
+            postBox.innerHTML = '';
+            for (let i=0; i < numberOfPostNumber; i++) {
                 // 이전까지의 피드
-                const prev = reviewBox.innerHTML;
+                const prev = postBox.innerHTML;
 
                 // 새로 추가될 피드
-                const reviewId = i;
-                const universityName = review[i].universityName;
-                const reviewCount = review[i].universityReviewCnt;
-                const countryName = review[i].universityCountry;
-                const categoryName = review[i].universityType;
+                const postId = i;
+                const title = post[i].communityTitle;
+                const tagList = post[i].communityTagList;
 
-                // 게시물 렌더링
-                reviewBox.innerHTML = prev + `
-                <div id=${reviewId}>
-                    <p>${universityName}</p>
-                    <p>${reviewCount}</p>
-                    <p># ${countryName}</p>
-                    <p># ${categoryName}</p>
-                </div>
-                `
-                console.log(review[i])
-                ;
+                // 만약 태그가 하나도 없다면
+                if (tagList.length == 0) {
+                    postBox.innerHTML = prev + `
+                    <div id=${postId}>
+                        <p>${title}</p>                
+                    </div>
+                    `
+                } 
+
+                // 태그가 하나라도 있다면
+                if (tagList.length > 0) {
+                    postBox.innerHTML = prev + `
+                    <div id=${postId}>
+                        <p>${title}</p>
+                        <div id="tagBox-${postId}"></div>                    
+                    </div>
+                    `
+                } 
+
+                // tag 띄우기
+                const setTags = (numberOfTagNumber, currPostId) => {
+                    let tagBox = document.getElementById(`tagBox-${currPostId}`);
+                    if (tagBox) {
+                        //초기화
+                        tagBox.innerHTML = '';
+                        for (let j=0; j < numberOfTagNumber; j++){
+                            // 이전까지의 tag
+                            const prevTags = tagBox.innerHTML;
+
+                            // 태그 렌더링
+                            tagBox.innerHTML = prevTags + `
+                                <p id="${currPostId}-${j}">#${tagList[j]}</p>
+                            `
+                        }
+                    }
+                }
+                if (tagList.length > 0) {
+                    const numberOfTagNumber = tagList.length;
+                    setTags(numberOfTagNumber, postId)
+                } 
+
             }
         }
     }
-    if (review.length > 0) {
-        const numberOfReviewNumber = review.length;
-        setReviews(numberOfReviewNumber);
+    if (post.length > 0) {
+        const numberOfPostNumber = post.length;
+        setPosts(numberOfPostNumber);
     }
 
     useEffect(() => {
-        // review 불러오기
-        findReviewInfo();
+        // post 불러오기
+        findPostInfo();
     }, []);
 
     return(
         <CommunityBody>
-            <div id="reviewBox">
+            <input
+                id="searchInput"
+                type="text"
+                placeholder="검색"
+                // onChange={onChangeSearchContent}
+            />
+            <p id="filterBtn"></p>
+            <div id="sorting">
+                    <p onClick={isSortingOpen ? closeSorting : openSorting}>
+                        {isSortingOpen ? '인기순▲' : '인기순▼'}
+                    </p>
+                    {isSortingOpen && (
+                        <div id="sortingList">
+                            <p onClick={() => handleSortingClick('인기순')}>인기순</p>
+                            <p onClick={() => handleSortingClick('스크랩순')}>스크랩순</p>
+                        </div>
+                    )}
             </div>
+            <div id="postBox"></div>
         </CommunityBody>
     )
 }

@@ -139,15 +139,13 @@ export const ReviewBody = styled.div`
         }
                
         #selectionCategoryBox{
-            transition: transform 1s ease-in-out;
-            
+            transform: translate(0%, 20%);
             input{
                 width: 300px;
                 height: 20px;
                 position: absolute;
                 top: 105%;
                 background-color: #eeeeee;
-                transform: translate(-68%, -880%);
                 border-radius: 5px;
                 padding: 10px;
                 margin-left: 10px;
@@ -158,22 +156,21 @@ export const ReviewBody = styled.div`
 
             #selectionCategoryList {
                 position: absolute;
-                top: 100%;
-                background-color: #eeeeee;
-                transform: translate(-64%, -134%);
+                background-color: white;
                 border-radius: 5px;
-                padding: 10px;
-                margin-left: 5px;
+                padding-top: 5px;
+                padding-bottom: 5px;
+                padding-left: 10px;
+                padding-right: 10px;
+                border: 2px solid #dcdcdc;
                 width: 300px;
-                height: 200px;
-                overflow: scroll;
-                z-index: 3;
+
+                p{
+                    margin: 0;
+                }
+
                 p:nth-child(1){
-                    padding-top: 20px;
-                    padding-bottom: 0;
-                    padding-left: 0;
-                    padding-right: 0;
-                    margin-top: 0;
+                    background-color: white;
                 }
             }
         }                
@@ -274,19 +271,5 @@ export const ReviewBody = styled.div`
             }
         }
     }
-    button {
-        position: relative;
-        z-index: 2;
-        border: 2px solid #dcdcdc;
-        background-color: white;
-        border-radius: 15px;
-        padding-top: 5px;
-        padding-bottom: 5px;
-        padding-left: 10px;
-        padding-right: 10px;
-        display: block;
-        margin: 0 auto;
-        margin-top: 0;
-        margin-bottom: 50px;
-    }
+
 `

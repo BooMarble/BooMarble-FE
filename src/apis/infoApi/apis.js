@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const getInfo = async () => {
   try {
-    const response = await axios.get('http://boomarble.com/info', {
+    const response = await axios.get('https://boomarble.com/info', {
       headers: {
         'X-AUTH-TOKEN': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMUBnbWFpbC5jb20iLCJyb2xlcyI6WyJVU0VSIl0sImlhdCI6MTcwMzU3MjczOSwiZXhwIjoxNzA0MTc3NTM5fQ.XdcltGt2MDyTnv1kfZghwdYeEZUNyiBEzGB4qUmMma8',
       }

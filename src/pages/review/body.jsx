@@ -115,17 +115,17 @@ function Body() {
     // 정렬 드롭다운 상태를 관리하는 state
     const [isSortingOpen, setSortingOpen] = useState(false)
 
-    // 학기 드롭다운 여는 함수
+    // 정렬 드롭다운 여는 함수
     function openSorting(){
         setSortingOpen(true)
     }
 
-    // 학기 드롭다운 닫는 함수
+    // 정렬 드롭다운 닫는 함수
     function closeSorting(){
         setSortingOpen(false)
     }
 
-    // 학기 드롭다운 항목 선택 시 처리할 함수
+    // 정렬 드롭다운 항목 선택 시 처리할 함수
     function handleSortingClick(item){
         console.log(`선택된 항목: ${item}`);
     }
@@ -304,7 +304,7 @@ function Body() {
             </div>
             <div id="sorting">
                     <p onClick={isSortingOpen ? closeSorting : openSorting}>
-                        {isSortingOpen ? '인기순▼' : '인기순▼'}
+                        {isSortingOpen ? '인기순▲' : '인기순▼'}
                     </p>
                     {isSortingOpen && (
                         <div id="sortingList">
@@ -314,7 +314,6 @@ function Body() {
                     )}
             </div>            
             <div id="reviewBox"></div>
-            <button>후기 쓰러 가기✏</button>
         </ReviewBody>
         
     )
