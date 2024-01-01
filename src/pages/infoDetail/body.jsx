@@ -3,14 +3,14 @@ import { useParams } from 'react-router-dom'; // React Router의 useParams를 �
 import axios from 'axios';
 
 function Body() {
-  const { id } = useParams(); // URL의 파라미터로부터 id 가져오기
+  const {id} = useParams(); // URL에서 id 가져오기
   const [detailInfo, setDetailInfo] = useState({}); // 세부 정보를 저장할 상태
 
   useEffect(() => {
     // id에 해당하는 세부 정보를 가져오는 함수
-    const fetchDetailInfo = async () => {
+    const fetchDetailInfo = async (id) => {
       try {
-        const response = await axios.get(`http://boomarble.com/info/${id}`);
+        const response = await axios.get(`https://boomarble.com/info/${id}`);
         setDetailInfo(response.data); // 받아온 세부 정보를 상태에 설정
       } catch (error) {
         console.error('Error fetching detail information:', error);

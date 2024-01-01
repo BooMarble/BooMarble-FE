@@ -29,7 +29,7 @@ function App() {
         <Route path={`/cost`} element={<Cost />}></Route>
         <Route path={`/courseList`} element={<CourseList />}></Route>
         <Route path={`/info`} element={<Info />}></Route>
-        <Route path={`/infoDetail`} element={<InfoDetail />}></Route>
+        <Route path={`/infoDetail/`} element={<InfoDetail />}></Route>
         <Route path={`/login`} element={<Login />}></Route>
         <Route path={`/mypage`} element={<MyPage />}></Route>
         <Route path={`/review`} element={<Review />}></Route>
