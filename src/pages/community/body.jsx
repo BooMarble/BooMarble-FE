@@ -166,12 +166,12 @@ function Body() {
             <p id="filterBtn"></p>
             <div id="sorting">
                     <p onClick={isSortingOpen ? closeSorting : openSorting}>
-                        {isSortingOpen ? '인기순▲' : '인기순▼'}
+                        {isSortingOpen ? '최신순▲' : '최신순▼'}
                     </p>
                     {isSortingOpen && (
                         <div id="sortingList">
+                            <p onClick={() => handleSortingClick('최신순')}>최신순</p>
                             <p onClick={() => handleSortingClick('인기순')}>인기순</p>
-                            <p onClick={() => handleSortingClick('스크랩순')}>스크랩순</p>
                         </div>
                     )}
             </div>

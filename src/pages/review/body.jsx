@@ -2,79 +2,24 @@ import { ReviewBody } from "./style";
 import useInput from "../../hooks/useInput";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getReviewInfo } from "../../apis/reviewApi/apis";
+import { getReviewInfo, getdropDown } from "../../apis/reviewApi/apis";
 
 function Body() {
 
-    // // 검색 구현
-    // const [searchContent, onChangeSearchContent, setSearchContent] = useInput('');
-    // const findSearchInfo = async () => {
-    //     const post = await getSearchInfo(userId, searchContent);
-    //     setPost(post);
-    // }
-    // if (searchContent) {
-    //     findSearchInfo(); 
-    // }
+    // 드롭다운 state 관리 (드롭다운 열고 닫기)
 
-    // // 검색어 자동완성 기능 구현
-    // // 사용자가 검색한 내용
-    // const [searchContent, onChangeSearchContent, setSearchContent] = useInput(''); 
-    // // 자동완성 검색 결과 리스트 (최다 검색/최다 태그 순으로 올 것 같음)
-    // const [searchResults, setSearchResults] = useState([]);
-    // // 드롭다운 열고 닫을 state -> false이면 드롭다운 닫고, true이면 드롭다운 열고
-    // const [showDropdown, setShowDropdown] = useState(false);
-
-    // // 검색 내용이 있으면 호출
-    // const findSearchInfo = async () => {
-    //     // 자동완성 검색 결과를 받아와서 
-    //     const results = await getSearchInfo(searchContent);
-    //      // 드롭다운 열고
-    //     setShowDropdown(true);
-    //     // searchResults 업데이트
-    //     setSearchResults(results);
-    // }
-    // if (searchContent) {
-    //     findSearchInfo();
-    // }
-
-    // // 드롭다운에서 특정 검색어를 선택하면 호출
-    // const handleResultClick = (result) => {
-    //     // 그게 검색창에 검색어로 입력되고
-    //     setSearchContent(result);
-    //     // 드롭다운은 꺼짐
-    //     setShowDropdown(false);
-    // };
-
-    // useEffect(() => {
-    //     if (searchContent) {
-    //     findSearchInfo();
-    //     } else {
-    //     setShowDropdown(false);
-    //     }
-    // }, [searchContent]);
-
-    // 드롭다운 메뉴 구현
     // 국가
-    // 국가 드롭다운 상태를 관리하는 state
-    const [isCountryOpen, setCountryOpen] = useState(false)
-
+    const [isCountryOpen, setCountryOpen] = useState(false);
     // 국가 드롭다운 여는 함수 
     function openCountry(){
         setCountryOpen(true)
     }
-
     // 국가 드롭다운 닫는 함수
     function closeCountry(){
         setCountryOpen(false)
     }
 
-    // 국가 드롭다운 항목 선택 시 처리할 함수
-    function handleCountryClick(item){
-        console.log(`선택된 항목: ${item}`);
-    }
-
     // 대학
-    // 대학 드롭다운 상태를 관리하는 state
     const [isUniversityOpen, setUniversityOpen] = useState(false)
 
     // 대학 드롭다운 여는 함수
@@ -87,13 +32,7 @@ function Body() {
         setUniversityOpen(false)
     }
 
-    // 대학 드롭다운 항목 선택 시 처리할 함수
-    function handleUniversityClick(item){
-        console.log(`선택된 항목: ${item}`);
-    }
-
-    //선발유형
-    // 선발유형 드롭다운 상태를 관리하는 state
+    // 선발유형 
     const [isSelectionCategoryOpen, setSelectionCategoryOpen] = useState(false)
 
     // 선발유형 드롭다운 여는 함수
@@ -105,6 +44,58 @@ function Body() {
     function closeSelectionCategory(){
         setSelectionCategoryOpen(false)
     }
+
+
+    // 드롭다운 메뉴 구현
+    // 선택된 국가
+    const [selectedCountry, setSelectedCountry] = useState('');
+    // 해당 국가에 대한 대학
+    const [universitiesBySelectedCountry, setUniversitiesBySelectedCountry] = useState([]);
+    // 해당 국가의 대학들만 추출
+    const [univsByCountry, setUnivsByCountry] = useState([]);
+
+    // 국가 선택하면
+    const handleCountryClick = (e) => {
+        // 해당 국가 따고
+       setSelectedCountry(e.target.innerText);
+    }
+
+    // 보여줄 국가
+    const [displayedCountry, setDisplayedCountry] = useState(""); 
+
+    useEffect(()=>{
+        console.log(selectedCountry) // "리투아니아"
+        // 해당 국가만 추출
+        const filteredCountry = countries.find((country) => country.name === selectedCountry);
+        console.log(filteredCountry) // name == "리투아니아"인 객체만 추출
+
+        // 거기서 다시 대학만 추출
+        const universities = filteredCountry?.universities || []; // 리투아니아 대학만 추출 
+        setUnivsByCountry(universities);
+
+        // 국가 -> 해당 대학명으로
+        setDisplayedCountry(selectedCountry);
+
+        // 국가 드롭다운 닫아주고 
+        closeCountry();
+
+    },[selectedCountry]);
+
+    // 선택된 대학
+    const [selectedUniv, setSelectedUniv] = useState("");
+
+    // 보여줄 대학
+    const [displayedUniv, setDisplayedUniv] = useState("");
+
+    // 대학 선택하면 
+    const handleUnivClick = (e) => {
+        setSelectedUniv(e.target.innerText)
+    }
+
+    useEffect(()=>{
+        console.log(selectedUniv);
+        
+    }, [selectedUniv])
 
     // 선발유형 드롭다운 항목 선택 시 처리할 함수
     function handleSelectionCategoryClick(item){
@@ -129,6 +120,22 @@ function Body() {
     function handleSortingClick(item){
         console.log(`선택된 항목: ${item}`);
     }
+
+    // dropdown 가져오기
+    const [countries, setCountries] = useState([]);
+    const dropdown = async () => {
+        try {
+            const countryList = await getdropDown();
+            setCountries(countryList)
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    useEffect(() => {
+        // dropdown 불러오기
+        dropdown();
+    },[]);
 
     // review 가져오기
     const navigate = useNavigate();
@@ -217,6 +224,17 @@ function Body() {
         
     // }
 
+    // // 검색 구현
+    // const [searchContent, onChangeSearchContent, setSearchContent] = useInput('');
+    // const findSearchInfo = async () => {
+    //     const post = await getSearchInfo(searchContent);
+    //     setPost(post);
+    // }
+    // if (searchContent) {
+    //     findSearchInfo(); 
+    // }
+
+
     return(
         <ReviewBody>
             {/* <input
@@ -227,8 +245,8 @@ function Body() {
             /> */}
             <div id="dropdownContainer">
                 <div id="country">
-                    <p onClick={isCountryOpen ? closeCountry : openCountry}>
-                        {isCountryOpen ? '국가▲' : '국가▼'}
+                    <p id="countryName" onClick={isCountryOpen ? closeCountry : openCountry}>
+                        {isCountryOpen ? '국가▼' : displayedCountry || '국가▼'}
                     </p>
                     {isCountryOpen && (
                         <div id="countryBox">
@@ -236,17 +254,14 @@ function Body() {
                                 id="searchInput"
                                 type="text"
                                 placeholder="국가를 검색하세요"
-                                // onChange={onChangeCountry}
-                            />                            
+                                // onChange={onChangeSearchContent}
+                            />
                             <div id="countryList">
-                                <p onClick={() => handleUniversityClick('항목 1')}>항목 1</p>
-                                <p onClick={() => handleUniversityClick('항목 2')}>항목 2</p>
-                                <p onClick={() => handleUniversityClick('항목 3')}>항목 3</p>
-                                <p onClick={() => handleUniversityClick('항목 3')}>항목 3</p>
-                                <p onClick={() => handleUniversityClick('항목 3')}>항목 3</p>
-                                <p onClick={() => handleUniversityClick('항목 3')}>항목 3</p>
-                                <p onClick={() => handleUniversityClick('항목 3')}>항목 3</p>
-                                <p onClick={() => handleUniversityClick('항목 3')}>항목 3</p>
+                                {countries.map((country, index) => (
+                                    <p key={index} onClick={handleCountryClick}>
+                                        {country.name}
+                                    </p>
+                                ))} 
                             </div>
                         </div>
                     )}
@@ -264,14 +279,11 @@ function Body() {
                                 // onChange={onChangeUniversity}
                             />
                             <div id="universityList">
-                                <p onClick={() => handleUniversityClick('항목 1')}>항목 1</p>
-                                <p onClick={() => handleUniversityClick('항목 2')}>항목 2</p>
-                                <p onClick={() => handleUniversityClick('항목 3')}>항목 3</p>
-                                <p onClick={() => handleUniversityClick('항목 3')}>항목 3</p>
-                                <p onClick={() => handleUniversityClick('항목 3')}>항목 3</p>
-                                <p onClick={() => handleUniversityClick('항목 3')}>항목 3</p>
-                                <p onClick={() => handleUniversityClick('항목 3')}>항목 3</p>
-                                <p onClick={() => handleUniversityClick('항목 3')}>항목 3</p>
+                                {univsByCountry.map((university, index)=>(
+                                    <p key={index} onClick={handleUnivClick}>
+                                        {university.name}
+                                    </p>
+                                ))}        
                             </div>
                         </div>
                     )}
@@ -304,12 +316,12 @@ function Body() {
             </div>
             <div id="sorting">
                     <p onClick={isSortingOpen ? closeSorting : openSorting}>
-                        {isSortingOpen ? '인기순▲' : '인기순▼'}
+                        {isSortingOpen ? '최신순▲' : '최신순▼'}
                     </p>
                     {isSortingOpen && (
                         <div id="sortingList">
+                            <p onClick={() => handleSortingClick('최신순')}>최신순</p>
                             <p onClick={() => handleSortingClick('인기순')}>인기순</p>
-                            <p onClick={() => handleSortingClick('스크랩순')}>스크랩순</p>
                         </div>
                     )}
             </div>            

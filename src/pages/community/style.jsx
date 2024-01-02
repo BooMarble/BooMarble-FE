@@ -61,6 +61,9 @@ export const CommunityBody = styled.div`
         p:nth-child(1){
             background-color: white;
         }
+        p:nth-child(2){
+            padding-left: 4px;
+        }
     }
     
     #postBox{
