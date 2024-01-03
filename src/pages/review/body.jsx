@@ -87,20 +87,50 @@ function Body() {
     // 보여줄 대학
     const [displayedUniv, setDisplayedUniv] = useState("");
 
+    // 리투아니아 대학들만 추출
+    const [exTypesByUniv, setExtypesByUniv] = useState([]);
+
     // 대학 선택하면 
     const handleUnivClick = (e) => {
         setSelectedUniv(e.target.innerText)
     }
 
     useEffect(()=>{
-        console.log(selectedUniv);
-        
+        console.log(selectedUniv); // 대학 이름: "CONASEP (Lyon College)"
+        // (3) 국가 && 대학 && 교환유형 다 선택할 때
+        // 저 대학에 해당하는 교환유형 배열로 추출
+        // 독일의 모든 대학들(univsByCountry)에서 univesity => university.name === selectedUniv
+        const filteredUniv = univsByCountry.filter((university) => university.name === selectedUniv);
+        // 그럼 배열 속 객체에 들어가 객체.name을 출력해야 교환유형 띄울 수 있음
+        console.log(filteredUniv)
+        setExtypesByUniv(filteredUniv)
+
+        // 대학 -> 해당 대학명으로
+        setDisplayedUniv(selectedUniv);
+
+        // 대학 드롭다운 닫아주고
+        closeUniversity();
     }, [selectedUniv])
 
+    // 선택된 교환유형
+    const [selectedExtype, setSelectedExtype] = useState("");
+
+    // 보여줄 교환유형
+    const [displayedExtype, setDisplayedExtype] = useState("");
+    
     // 선발유형 드롭다운 항목 선택 시 처리할 함수
-    function handleSelectionCategoryClick(item){
-        console.log(`선택된 항목: ${item}`);
+    const handleExtypeClick = (e) => {
+        setSelectedExtype(e.target.innerText);
     }
+
+    useEffect(()=>{
+        console.log(selectedExtype);
+
+        // 교환유형 -> 선택한 교환유형
+        setDisplayedExtype(selectedExtype);
+        //드롭다운 닫아주기
+        closeSelectionCategory();
+    }, [selectedExtype])
 
     // 정렬 방식 선택
     // 정렬 드롭다운 상태를 관리하는 state
@@ -116,10 +146,6 @@ function Body() {
         setSortingOpen(false)
     }
 
-    // 정렬 드롭다운 항목 선택 시 처리할 함수
-    function handleSortingClick(item){
-        console.log(`선택된 항목: ${item}`);
-    }
 
     // dropdown 가져오기
     const [countries, setCountries] = useState([]);
@@ -201,6 +227,14 @@ function Body() {
         setReviews(numberOfReviewNumber);
     }
 
+    // // 국가, 대학, 교환유형 중 하나라도 선택하면 -> 바로 setReview
+    
+    // // 국가만 선택했을 때
+    // if (selectedCountry.length > 0) {
+    //     const postsByCountry = review.filter((post)=>post.universityCountry === selectedCountry);
+    //     setReview(postsByCountry);
+    // } 
+
     // // 후기 쓰러 가기 버튼 누를 시
     // const handleOnClickPosting = () => {
     //     navigate(`/reviewPosting`)
@@ -268,7 +302,7 @@ function Body() {
                 </div>
                 <div id="university">
                     <p onClick={isUniversityOpen ? closeUniversity : openUniversity}>
-                        {isUniversityOpen ? '대학▲' : '대학▼'}
+                        {isUniversityOpen ? '대학▼' : displayedUniv || '대학▼'}
                     </p>
                     {isUniversityOpen && (
                         <div id="universityBox">
@@ -290,7 +324,7 @@ function Body() {
                 </div>
                 <div id="selectionCategory">
                     <p onClick={isSelectionCategoryOpen ? closeSelectionCategory : openSelectionCategory}>
-                        {isSelectionCategoryOpen ? '선발유형▲' : '선발유형▼'}
+                        {isSelectionCategoryOpen ? '선발유형▼' : displayedExtype || '선발유형▲'}
                     </p>
                     {isSelectionCategoryOpen && (
                         <div id="selectionCategoryBox">
@@ -301,14 +335,11 @@ function Body() {
                                 // onChange={onChangeSelectionCategory}
                             />
                             <div id="selectionCategoryList">
-                                <p onClick={() => handleSelectionCategoryClick('항목 1')}>항목 1</p>
-                                <p onClick={() => handleSelectionCategoryClick('항목 2')}>항목 2</p>
-                                <p onClick={() => handleSelectionCategoryClick('항목 3')}>항목 3</p>
-                                <p onClick={() => handleSelectionCategoryClick('항목 3')}>항목 3</p>
-                                <p onClick={() => handleSelectionCategoryClick('항목 3')}>항목 3</p>
-                                <p onClick={() => handleSelectionCategoryClick('항목 3')}>항목 3</p>
-                                <p onClick={() => handleSelectionCategoryClick('항목 3')}>항목 3</p>
-                                <p onClick={() => handleSelectionCategoryClick('항목 3')}>항목 3</p>
+                                {exTypesByUniv.map((university, index)=>(
+                                    <p key={index} onClick={handleExtypeClick}>
+                                        {university.exType}
+                                    </p>
+                                ))}
                             </div>
                         </div>
                     )}
@@ -320,8 +351,8 @@ function Body() {
                     </p>
                     {isSortingOpen && (
                         <div id="sortingList">
-                            <p onClick={() => handleSortingClick('최신순')}>최신순</p>
-                            <p onClick={() => handleSortingClick('인기순')}>인기순</p>
+                            <p>최신순</p>
+                            <p>인기순</p>
                         </div>
                     )}
             </div>            

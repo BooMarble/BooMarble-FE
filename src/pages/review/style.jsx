@@ -46,11 +46,12 @@ export const ReviewBody = styled.div`
                 position: absolute;
                 top: 105%;
                 background-color: #eeeeee;
-                transform: translate(-14%, -880%);
+                transform: translate(-12%, -880%);
                 border-radius: 5px;
                 padding: 10px;
                 margin-left: 10px;
                 z-index: 4;
+                border: 2px solid #dcdcdc;
             }
 
             #countryList {
@@ -65,6 +66,7 @@ export const ReviewBody = styled.div`
                 height: 200px;
                 overflow: scroll;
                 z-index: 3;
+                border: 2px solid #dcdcdc;
                 p:nth-child(1){
                     padding-top: 20px;
                     padding-bottom: 0;
@@ -95,13 +97,14 @@ export const ReviewBody = styled.div`
                 position: absolute;
                 top: 105% !important;
                 background-color: #eeeeee;
-                transform: translate(-41%, -880%);
+                transform: translate(-39%, -880%);
                 border-radius: 5px;
                 padding: 10px;
                 margin-left: 10px;
                 z-index: 4;
                 border:none;
                 font-size: 100%;
+                border: 2px solid #dcdcdc;
             }            
 
             #universityList {
@@ -116,6 +119,7 @@ export const ReviewBody = styled.div`
                 height: 200px;
                 overflow: scroll;
                 z-index: 3;
+                border: 2px solid #dcdcdc;
                 p:nth-child(1){
                     padding-top: 20px;
                     padding-bottom: 0;
@@ -139,31 +143,36 @@ export const ReviewBody = styled.div`
         }
                
         #selectionCategoryBox{
-            transform: translate(0%, 20%);
+            transition: transform 1s ease-in-out;
             input{
                 width: 300px;
                 height: 20px;
                 position: absolute;
-                top: 105%;
+                top: 105% !important;
                 background-color: #eeeeee;
+                transform: translate(-66%, -880%);
                 border-radius: 5px;
                 padding: 10px;
                 margin-left: 10px;
                 z-index: 4;
                 border:none;
                 font-size: 100%;
+                border: 2px solid #dcdcdc;
             }
 
             #selectionCategoryList {
                 position: absolute;
-                background-color: white;
+                top: 100%;
+                background-color: #eeeeee;
+                transform: translate(-64%, -134%);                
                 border-radius: 5px;
-                padding-top: 5px;
-                padding-bottom: 5px;
-                padding-left: 10px;
-                padding-right: 10px;
-                border: 2px solid #dcdcdc;
+                margin-left: 5px;
+                padding: 10px;
                 width: 300px;
+                height: 200px;
+                overflow: scroll;
+                z-index: 3;
+                border: 2px solid #dcdcdc;
 
                 p{
                     margin: 0;
