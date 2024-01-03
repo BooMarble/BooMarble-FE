@@ -12,7 +12,7 @@ import InfoDetail from "./pages/infoDetail";
 import Login from "./pages/login";
 import MyPage from "./pages/mypage";
 import Review from "./pages/review";
-import ReviewDetail from "./pages/reviewDetail";
+import ReviewDetail from "./pages/reviewDetail/body";
 import ReviewPosting from "./pages/reviewPosting";
 import TextDataPage from "./pages/textDataPage";
 
@@ -29,7 +29,7 @@ function App() {
         <Route path={`/cost`} element={<Cost />}></Route>
         <Route path={`/courseList`} element={<CourseList />}></Route>
         <Route path={`/info`} element={<Info />}></Route>
-        <Route path={`/infoDetail/`} element={<InfoDetail />}></Route>
+        <Route path={`/infoDetail/:universityId`} element={<InfoDetail />}></Route>
         <Route path={`/login`} element={<Login />}></Route>
         <Route path={`/mypage`} element={<MyPage />}></Route>
         <Route path={`/review`} element={<Review />}></Route>

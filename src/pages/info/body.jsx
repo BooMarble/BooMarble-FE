@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { getInfo } from '../../apis/infoApi/apis';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { LinkStyle, CountryDropdown, UniversityDropdown, TypeDropdown,
-  DropdownContainer, UniversityInfoContainer, UniversityList, UniversityListItem, Univlist } from './style';
+  DropdownContainer, UniversityInfoContainer, UniversityList, UniversityListItem} from './style';
 
 const Body = () => {
   const [universityInfo, setUniversityInfo] = useState([]);
@@ -103,7 +104,7 @@ const Body = () => {
           )
           .map((info, index) => (
             <UniversityListItem key={index}>
-              <LinkStyle as={Link} to={`/info/${info.id}`}>
+              <LinkStyle as={Link} to={`/info/${info.universityId}`} key={info.universityId}>
                 <b>{info.universityName}</b>
                 <p>#{info.universityCountry}</p>
                 <p>#{info.universityType}</p>
