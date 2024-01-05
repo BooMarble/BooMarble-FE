@@ -97,7 +97,7 @@ function Body() {
                 const prev = postBox.innerHTML;
 
                 // 새로 추가될 피드
-                const postId = i;
+                const postId = post[i].postId;
                 const title = post[i].communityTitle;
                 const tagList = post[i].communityTagList;
 
@@ -155,6 +155,16 @@ function Body() {
         findPostInfo();
     }, []);
 
+    const handleOnClick = async (e) => {
+        e.preventDefault();
+        let postId = e.target.parentNode.id;
+        console.log(postId);
+        if (postId.slice(0,7) === 'tagBox-'){
+            postId = postId.slice(7);
+        }
+        navigate(`/posts/${postId}`);
+    }
+
     return(
         <CommunityBody>
             <input
@@ -175,7 +185,7 @@ function Body() {
                         </div>
                     )}
             </div>
-            <div id="postBox"></div>
+            <div id="postBox" onClick={handleOnClick}></div>
         </CommunityBody>
     )
 }
