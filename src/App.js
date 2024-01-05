@@ -24,7 +24,7 @@ function App() {
         <Route path={`/chat`} element={<Chat />}></Route>
         <Route path={`/chatDetail`} element={<ChatDetail />}></Route>
         <Route path={`/community`} element={<Community />}></Route>
-        <Route path={`/posts/:postId`} element={<CommunityDetail />}></Route>
+        <Route path={`/communityDetail`} element={<CommunityDetail />}></Route>
         <Route path={`communityPosting`} element={<CommunityPosting />}></Route>
         <Route path={`/cost`} element={<Cost />}></Route>
         <Route path={`/courseList`} element={<CourseList />}></Route>

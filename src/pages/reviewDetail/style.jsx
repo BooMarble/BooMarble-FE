@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import toggleBtn from "../../assets/images/toggleBtn.png";
-import scrapBtn from "../../assets/images/scrapBtn.png";
 
 export const ReviewDetailBody = styled.div`
     #generalInfo {

@@ -187,7 +187,7 @@ function Body() {
 
     // // 등록하기 버튼 누를 시
     // const navigate = useNavigate();
-    // const handleOnSubmit = (e) => {
+    // const handleSubmitClick = (e) => {
     //     e.preventDefault;
     //     if (!title){
     //         alert('제목을 작성해주세요.');
