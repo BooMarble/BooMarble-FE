@@ -196,7 +196,7 @@ function Body() {
     //         alert('내용을 작성해주세요.');
     //     }
     //     else{
-    //         posting(navigate, title, content, selectedCountry, universityId, exType, semester, hashTags)
+    //         posting(navigate, title, content, filteredCountry.englishName, universityId, exType, semester, hashTags)
     //     }
     // }
 

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { getPostInfo } from "../../apis/commDetApi/apis";
+import { useNavigate } from "react-router-dom";
+import { getPostInfo, addComment } from "../../apis/commDetApi/apis";
 import { useParams } from "react-router-dom";
 import notScrapBtn from "../../assets/images/notScrapBtn.png";
 import scrapBtn from "../../assets/images/scrapBtn.png";
@@ -46,6 +47,17 @@ function Body() {
         setScrapOpen(false)
     }
 
+    const navigate = useNavigate();
+
+    // 댓글 내용
+    const [commentContent, setCommentContent] = useState('');
+
+    const handleOnSubmit = (e) => {
+        e.preventDefault();
+        addComment(navigate, postId, commentContent);
+        setCommentContent('');
+    } 
+
     return(
         <DetailBody>
             <div id="userBox">
@@ -61,8 +73,11 @@ function Body() {
             <p>해시태그</p>
             <p>내용</p>
             <div id="postingCmts">
-                <textarea placeholder="댓글을 입력하세요."></textarea>
-                <button>등록</button>
+                <textarea 
+                    value={commentContent}
+                    placeholder="댓글을 입력하세요."
+                    onChange={(e) => setCommentContent(e.target.value)}></textarea>
+                <button onClick={handleOnSubmit}>등록</button>
             </div>
         </DetailBody>
     )
