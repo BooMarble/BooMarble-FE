@@ -59,7 +59,6 @@ function Body() {
     {detailInfo.japaneseQ && detailInfo.japaneseQ !== "" && (
       <p>{detailInfo.japaneseQ}</p>)}
     </JapaneseContainer>
-
     <ChineseContainer>
     <h3>중국어 요건</h3>
      {detailInfo.chineseQ && detailInfo.chineseQ.length > 0 && detailInfo.chineseQ[0].id !== "" && (
