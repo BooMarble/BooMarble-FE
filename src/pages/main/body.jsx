@@ -10,8 +10,8 @@ function Body() {
   const onChange = (newDate) => {
     setDate(newDate);};
   const tileContent = ({ date, view }) => {
-    const startDate = new Date(2023, 11, 17); // 2023년 12월 17일
-    const endDate = new Date(2023, 11, 22); // 2023년 12월 22일
+    const startDate = new Date(2024, 1, 1); // 2023년 12월 17일
+    const endDate = new Date(2024, 1, 22); // 2023년 12월 22일
     const onClickDate = () => {
       if (date >= startDate && date <= endDate) {
         alert('모집기간');}};
@@ -46,16 +46,30 @@ function Body() {
   }, []);
 
 //모의지원
-  const [countries, setCountries] = useState([]);
-  const [selectedCountry, setSelectedCountry] = useState('');
+const [countries, setCountries] = useState([]);
+const [universities, setUniversities] = useState([]);
+const [exTypes, setExTypes] = useState([]);
+const [selectedCountry, setSelectedCountry] = useState('');
+const [selectedUniversity, setSelectedUniversity] = useState('');
+const [selectedExType, setSelectedExType] = useState('');
+
+
   const handleCountryChange = (event) => {
     const selectedCountryName = event.target.value;
     setSelectedCountry(selectedCountryName);
   }; 
+  const handleUniversityChange = (event) => {
+    const selectedUniversityId = event.target.value;
+    setSelectedUniversity(selectedUniversityId);
+  };
+  const handleExTypeChange = (event) => {
+    const selectedExType = event.target.value;
+    setSelectedExType(selectedExType);
+  };
+
   useEffect(() => {
     const fetchCountries = async () => {
       try {
-        
         const response = await fetch('https://boomarble.com/universities', {
           headers: headers,
         });
@@ -92,12 +106,13 @@ function Body() {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
+          'Accept':'application/json',
           'X-AUTH-TOKEN': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMUBnbWFpbC5jb20iLCJyb2xlcyI6WyJVU0VSIl0sImlhdCI6MTcwNDE3Nzc2MiwiZXhwIjoxNzA0NzgyNTYyfQ.VFK3IZu7g_kVQg6bYibjFBGMHwKZJ5lQdmRMcz94lLI'
         }
       });
   
       if (response.ok) {
-        const data = await response.json();
+        const data = await response.text();
         console.log('API 응답 데이터:', data); // 받은 데이터를 로깅
       } else {
         throw new Error('Failed to fetch language data');
@@ -134,6 +149,25 @@ function Body() {
             </option>
           ))}
         </select>
+        {/* 대학 선택 드롭다운 */}
+        <label htmlFor="universityDropdown">대학 선택</label>
+        <select id="universityDropdown" onChange={handleUniversityChange} value={selectedUniversity}>
+          <option value="">University</option>
+          {universities.map((university, index) => (
+            <option key={index} value={university.id}>
+              {university.name}
+            </option>
+          ))}
+        </select>
+
+        {/* 교환 타입 선택 드롭다운 */}
+        <label htmlFor="exTypeDropdown">교환 타입 선택</label>
+        <select id="exTypeDropdown" onChange={handleExTypeChange} value={selectedExType}>
+          <option value="">Exchange Type</option>
+          <option value="exchange">교환학생</option>
+          {/* 다른 교환 타입들을 필요에 따라 추가 */}
+        </select>
+
         <button onClick={handleSearch}>Search</button>
       </div>
 
@@ -141,4 +175,4 @@ function Body() {
   );
 }
 
-export default Body;
+export default Body; 
