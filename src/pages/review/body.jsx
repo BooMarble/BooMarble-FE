@@ -1,7 +1,7 @@
 import { ReviewBody } from "./style";
 import useInput from "../../hooks/useInput";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getReviewInfo, getdropDown } from "../../apis/reviewApi/apis";
 
 function Body() {

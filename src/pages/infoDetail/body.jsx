@@ -13,7 +13,7 @@ function Body() {
     const fetchDetailInfo = async () => {
       try {
         const response = await axios.get(`https://boomarble.com/info/${universityId}`,
-        {headers: {  'X-AUTH-TOKEN': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMUBnbWFpbC5jb20iLCJyb2xlcyI6WyJVU0VSIl0sImlhdCI6MTcwNDE3Nzc2MiwiZXhwIjoxNzA0NzgyNTYyfQ.VFK3IZu7g_kVQg6bYibjFBGMHwKZJ5lQdmRMcz94lLI',
+        {headers: {  'X-AUTH-TOKEN': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMUBnbWFpbC5jb20iLCJyb2xlcyI6WyJVU0VSIl0sImlhdCI6MTcwNDgxMTI5NywiZXhwIjoxNzA1NDE2MDk3fQ.cuY3iR5xtDlQ4XmLvxG_J0v1zBSRjDgQ5T7lk8Oim7o',
           }}) ;
           console.log(response.data|| response.data[0]);
         setDetailInfo(response.data|| response.data[0]); // 받아온 세부 정보를 상태에 설정
@@ -32,6 +32,7 @@ function Body() {
     <h2> {detailInfo.universityName}</h2>
     <DetailWrapper>
     <MainDetailsWrapper>
+    <h2>Basic Info</h2>
     <h3>유형</h3> 
     <p>{detailInfo.exType}</p>
     <h3>국가</h3>
@@ -43,6 +44,7 @@ function Body() {
     </MainDetailsWrapper>
 
     <RequirementWrapper>
+    <h2>Requirement</h2>
     <h3>학점 기준</h3>
 
     <EnglishContainer>
@@ -79,6 +81,7 @@ function Body() {
     </RequirementWrapper>
 
     <CostWrapper>
+    <h2>Cost</h2>
     <h3>예상 비용</h3>
     <p>{detailInfo.expCost}</p>
     <h3>예상 비용 설명</h3>
@@ -86,6 +89,7 @@ function Body() {
     </CostWrapper>
 
     <ExtradetailWrapper>
+    <h2>Extradetail</h2>
     <h3>혜택</h3>
     <p>{detailInfo.benefit}</p>
     <h3>기타</h3>

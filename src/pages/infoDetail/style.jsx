@@ -1,5 +1,3 @@
-// style.jsx 파일
-
 import styled from 'styled-components';
 
 export const Container = styled.div`
@@ -10,6 +8,8 @@ export const Container = styled.div`
 
 export const DetailWrapper = styled.div`
   margin-top: 20px;
+  overflow: auto;
+  max-height: 550px;
 `;
 
 export const MainDetailsWrapper = styled.div`
@@ -123,6 +123,7 @@ background-color: #EEEEEE;
 //  }
 //`;
 export const ExtradetailWrapper = styled.div`
+overflow: auto;
 background-color: #EEEEEE;
   padding: 15px;
   border-radius: 5px;
