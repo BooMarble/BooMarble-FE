@@ -18,7 +18,11 @@ export const MainDetailsWrapper = styled.div`
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 15px;
+  transition: background-color 0.2s ease-in-out;
 
+  &:hover {
+    background-color: #f9f9f9;
+  }
   h3 {
     font-size: 18px;
     margin-bottom: 10px;
@@ -38,6 +42,11 @@ background-color: #EEEEEE;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 15px;
+  transition: background-color 0.2s ease-in-out;
+
+  &:hover {
+    background-color: #f9f9f9;
+  }
   h3 {
     font-size: 18px;
     margin-bottom: 10px;
@@ -52,6 +61,7 @@ background-color: #EEEEEE;
 `;
 
 export const EnglishContainer = styled.div`
+
 
   h3 {
     font-size: 18px;
@@ -104,6 +114,10 @@ background-color: #EEEEEE;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 15px;
+  transition: background-color 0.3s ease-in-out;
+  &:hover {
+    background-color: #f9f9f9;
+  }
   h3 {
     font-size: 18px;
     margin-bottom: 10px;
@@ -129,6 +143,10 @@ background-color: #EEEEEE;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 15px;
+  transition: background-color 0.3s ease-in-out;
+  &:hover {
+    background-color: #f9f9f9;
+  }
   h3 {
     font-size: 18px;
     margin-bottom: 10px;
