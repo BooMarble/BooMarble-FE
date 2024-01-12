@@ -3,7 +3,7 @@ import Wrapper from "../../style/global/wrapper";
 import Header from "../../style/global/header/body";
 import Footer from "../../style/global/footer/body";
 
-function Cost() {
+function Dorm() {
     return(
         <Wrapper>
             <Header></Header>
@@ -13,5 +13,5 @@ function Cost() {
     )
 }
 
-export default Cost;
+export default Dorm;
 

@@ -15,6 +15,7 @@ import Review from "./pages/review";
 import ReviewDetail from "./pages/reviewDetail/body";
 import ReviewPosting from "./pages/reviewPosting";
 import TextDataPage from "./pages/textDataPage";
+import Dorm from "./pages/dorm"
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
         <Route path={`/reviewDetail`} element={<ReviewDetail />}></Route>
         <Route path={`/reviewPosting`} element={<ReviewPosting />}></Route>
         <Route path={`textDataPage`} element={<TextDataPage />}></Route>
+        <Route path={`/dorm`} element={<Dorm/>}></Route>
       </Routes>
     </Router>
   );
