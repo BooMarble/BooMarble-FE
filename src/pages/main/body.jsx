@@ -10,8 +10,8 @@ function Body() {
   const onChange = (newDate) => {
     setDate(newDate);};
   const tileContent = ({ date, view }) => {
-    const startDate = new Date(2024, 1, 1); // 2023년 12월 17일
-    const endDate = new Date(2024, 1, 22); // 2023년 12월 22일
+    const startDate = new Date(2024, 1, 1);
+    const endDate = new Date(2024, 1, 18);
     const onClickDate = () => {
       if (date >= startDate && date <= endDate) {
         alert('모집기간');}};

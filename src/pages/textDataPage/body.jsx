@@ -21,7 +21,7 @@ function Body() {
                 placeholder="검색"
                 // onChange={onChangeSearchContent}
             />
-            <p>무화과</p>
+            <p>UserName</p>
             <p>입학허가서 신청 시 유의사항</p>
             <p>ENMU는 작성해야 하는 서류가 많지 않습니다. 국제교류팀이나 해외대학에서 오는 메일이나 연락 확인만 잘 하시고 시키는대로 하면 어려운 점은 특별히 없습니다.</p>
             <p>비자 취득, 항공권 및 유학생 보험 구입</p>

@@ -21,7 +21,7 @@ function Footer() {
         <FooterLink as={Link} to= '../info'>
             <img src={info_img} alt="info_img"/>
         </FooterLink>
-        <FooterLink as={Link} to= '../review'>
+        <FooterLink as={Link} to= '../chat'>
             <img src={chat_img} alt="chat_img"/>
         </FooterLink>
 
