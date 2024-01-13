@@ -97,7 +97,7 @@ function Body() {
                 const prev = postBox.innerHTML;
 
                 // 새로 추가될 피드
-                const postId = post[i].postId;
+                const postId = post[i].communityId;
                 const title = post[i].communityTitle;
                 const tagList = post[i].communityTagList;
 

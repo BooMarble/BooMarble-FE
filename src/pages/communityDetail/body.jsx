@@ -8,7 +8,7 @@ import { DetailBody } from "./style";
 
 function Body() {
     // postId
-    const postId = useParams().postId;
+    const postId = useParams().communityId;
     console.log(postId)
 
     // postInfo 가져오기

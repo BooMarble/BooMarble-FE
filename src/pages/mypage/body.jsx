@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { getLangRegion, postEnglishUser } from "../../apis/mypageApi/apis";
 //모의지원 검색 결과(내 등수, 내 위 2명 등수, 내 아래 2명 등수)는 아직 구현 못한 상태
 function Body() {
   const [countries, setCountries] = useState([]);
@@ -67,69 +68,105 @@ function Body() {
       }
     }
   }, [selectedUniversity, countries, selectedCountry]);
-  const handleSearch = async () => {
+
+  // search 누르지 말고 언어권 바로 분류받기
+  const [langRegion, setLangRegion] = useState('');
+  const findLangRegion = async () => {
+    //정상 접근 시
     try {
-      let apiUrl = '';
-      let requestBody = {};
-
-      if (selectedCountry === 'Japanese') {
-        apiUrl = 'https://boomarble.com/prediction/japanese';
-        requestBody = {
-          semester: semester,
-          country: selectedCountry,
-          universityId: selectedUniversity,
-          exType: selectedExType,
-          grade: parseFloat(grade),
-          level: level,
-          score: parseInt(score),
-          hasRecommendationLetter: recommendationLetter === 'yes' ? true : false
-        };
-      } else if (selectedCountry === 'Chinese') {
-        apiUrl = 'https://boomarble.com/prediction/chinese';
-        requestBody = {
-          semester: semester,
-          country: selectedCountry,
-          universityId: selectedUniversity,
-          exType: selectedExType,
-          grade: parseFloat(grade),
-          level: level,
-          score: parseInt(score),
-          chineseType: chineseType,
-          testType: testType
-        };
-      } else if (selectedCountry === 'English') {
-        apiUrl = 'https://boomarble.com/prediction/english';
-        requestBody = {
-          semester: semester,
-          country: selectedCountry,
-          universityId: selectedUniversity,
-          exType: selectedExType,
-          grade: parseFloat(grade),
-          testType: testType,
-          score: parseFloat(score)
-        };
-      }
-
-      const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'X-AUTH-TOKEN': headers['X-AUTH-TOKEN']
-        },
-        body: JSON.stringify(requestBody)
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log('API 응답 데이터:', data);
-      } else {
-        throw new Error('Failed to fetch prediction data');
-      }
-    } catch (error) {
-      console.error('Error fetching prediction data:', error);
+      const langRegionInfo = await getLangRegion(selectedCountry);
+      setLangRegion(langRegionInfo);
+    } catch (err) {
+      // 비정상 접근 시
+      console.log(err)
     }
-  };
+  }
+
+  useEffect(()=>{
+    // 언어권 받아오기
+    if (selectedCountry !== '') {
+      findLangRegion();
+    } 
+  }, [selectedCountry]);
+
+  const [countryFlag, setCountryFlag] = useState(0);
+
+  useEffect(()=>{
+    // 그 언어권에 맞게 드롭다운 다르게 띄우기
+    if (langRegion === 'english') {
+      setCountryFlag(1)
+    } else if (langRegion === 'japanese') {
+      setCountryFlag(2)
+    } else if (langRegion === 'chinese') {
+      setCountryFlag(3)
+    }
+  },[langRegion]);
+
+  // search 버튼 눌렀을 때
+
+  // const handleSearch = async () => {
+  //   try {
+  //     let apiUrl = '';
+  //     let requestBody = {};
+
+  //     if (selectedCountry === 'Japanese') {
+  //       apiUrl = 'https://boomarble.com/prediction/japanese';
+  //       requestBody = {
+  //         semester: semester,
+  //         country: selectedCountry,
+  //         universityId: selectedUniversity,
+  //         exType: selectedExType,
+  //         grade: parseFloat(grade),
+  //         level: level,
+  //         score: parseInt(score),
+  //         hasRecommendationLetter: recommendationLetter === 'yes' ? true : false
+  //       };
+  //     } else if (selectedCountry === 'Chinese') {
+  //       apiUrl = 'https://boomarble.com/prediction/chinese';
+  //       requestBody = {
+  //         semester: semester,
+  //         country: selectedCountry,
+  //         universityId: selectedUniversity,
+  //         exType: selectedExType,
+  //         grade: parseFloat(grade),
+  //         level: level,
+  //         score: parseInt(score),
+  //         chineseType: chineseType,
+  //         testType: testType
+  //       };
+  //     } else if (selectedCountry === 'English') {
+  //       apiUrl = 'https://boomarble.com/prediction/english';
+  //       requestBody = {
+  //         semester: semester,
+  //         country: selectedCountry,
+  //         universityId: selectedUniversity,
+  //         exType: selectedExType,
+  //         grade: parseFloat(grade),
+  //         testType: testType,
+  //         score: parseFloat(score)
+  //       };
+  //     }
+
+  //     const response = await fetch(apiUrl, {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'Accept': 'application/json',
+  //         'X-AUTH-TOKEN': headers['X-AUTH-TOKEN']
+  //       },
+  //       body: JSON.stringify(requestBody)
+  //     });
+
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       console.log('API 응답 데이터:', data);
+  //     } else {
+  //       throw new Error('Failed to fetch prediction data');
+  //     }
+  //   } catch (error) {
+  //     console.error('Error fetching prediction data:', error);
+  //   }
+  // };
   return (
     <div>
       <div>
@@ -163,7 +200,7 @@ function Body() {
           ))}
         </select>
   
-  {selectedCountry === 'Japanese' && (
+  { countryFlag === 2 && (
   <>
     {/*Japanese */}
     <label htmlFor="semesterInput">Semester</label>
@@ -207,7 +244,7 @@ function Body() {
   </>
 )}
   
-  {selectedCountry === 'Chinese' && (
+  {countryFlag === 3 && (
   <>
     {/*Chinese*/}
     <label htmlFor="semesterInput">Semester</label>
@@ -261,7 +298,7 @@ function Body() {
 )}
 
   
-  {selectedCountry === 'English' && (
+  {countryFlag === 1 && (
   <>
     {/*English*/}
     <label htmlFor="semesterInput">Semester</label>
@@ -269,6 +306,7 @@ function Body() {
       type="text"
       id="semesterInput"
       value={semester}
+      placeholder="학기를 입력하세요"
       onChange={(e) => setSemester(e.target.value)}
     />
 
@@ -277,6 +315,7 @@ function Body() {
       type="text"
       id="gradeInput"
       value={grade}
+      placeholder="학점을 입력하세요"
       onChange={(e) => setGrade(e.target.value)}
     />
 
@@ -297,12 +336,13 @@ function Body() {
       type="text"
       id="scoreInput"
       value={score}
+      placeholder="점수를 입력하세요"
       onChange={(e) => setScore(e.target.value)}
     />
   </>
 )}
   
-        <button onClick={handleSearch}>Search</button>
+        <button>Search</button>
       </div>
     </div>
   );
