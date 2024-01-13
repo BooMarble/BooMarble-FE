@@ -15,14 +15,14 @@ export const getLangRegion = async(selectedCountry) => {
 }
 
 // 영어권: 유저 스펙 보내는 함수
-export const postEnglishUser = async (semester, selectedCountry, selectedUniversity, selectedExType, grade, testType, score) => {
+export const postEnglishUser = async (semester, selectedCountry, selectedUniversity, exTypesEng, grade, testType, score) => {
     try {
         const response = await axios.post(`https://boomarble.com/prediction/english`,
             {
                 "semester": semester,
                 "country": selectedCountry,
                 "universityId": parseInt(selectedUniversity),
-                "exType": selectedExType,
+                "exType": exTypesEng,
                 "grade": parseFloat(grade),
                 "testType": testType,
                 "score": parseFloat(score)

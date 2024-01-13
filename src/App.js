@@ -16,6 +16,7 @@ import ReviewDetail from "./pages/reviewDetail/body";
 import ReviewPosting from "./pages/reviewPosting";
 import TextDataPage from "./pages/textDataPage";
 import Dorm from "./pages/dorm"
+import Loading from './pages/loading';
 
 function App() {
   return (
@@ -25,7 +26,7 @@ function App() {
         <Route path={`/chat`} element={<Chat />}></Route>
         <Route path={`/chatDetail`} element={<ChatDetail />}></Route>
         <Route path={`/community`} element={<Community />}></Route>
-        <Route path={`/posts/:postId`} element={<CommunityDetail />}></Route>
+        <Route path={`/posts/:communityId`} element={<CommunityDetail />}></Route>
         <Route path={`communityPosting`} element={<CommunityPosting />}></Route>
         <Route path={`/cost`} element={<Cost />}></Route>
         <Route path={`/courseList`} element={<CourseList />}></Route>
@@ -38,6 +39,7 @@ function App() {
         <Route path={`/reviewPosting`} element={<ReviewPosting />}></Route>
         <Route path={`textDataPage`} element={<TextDataPage />}></Route>
         <Route path={`/dorm`} element={<Dorm/>}></Route>
+        <Route path={`/login/oauth2/code/google`} element={<Loading />}></Route>
       </Routes>
     </Router>
   );

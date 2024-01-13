@@ -10,6 +10,7 @@ function Body() {
     const [selectedCountry, setSelectedCountry] = useState('');
     const [selectedUniversity, setSelectedUniversity] = useState('');
     const [selectedExType, setSelectedExType] = useState('');
+    const [exTypesEng, setExTypesEng] = useState('');
     // 각 언어권에서 필요한 정보
     const [testType, setTestType] = useState('');
     const [semester, setSemester] = useState('');
@@ -72,6 +73,7 @@ function Body() {
             const selectedUniversityInfo = selectedCountryInfo?.universities.find(university => university.id === parseInt(selectedUniversity));
             if (selectedUniversityInfo) {
                 setExTypes([selectedUniversityInfo.exType]);
+                setExTypesEng(selectedUniversityInfo.englishExType);
             } else {
                 console.error('Selected university not found');
             }
@@ -114,7 +116,7 @@ function Body() {
     // search 누를 시
     const handleOnSubmit = async (e) => {
         e.preventDefault();
-        await postEnglishUser(semester, selectedCountry, selectedUniversity, selectedExType, grade, testType, score)
+        await postEnglishUser(semester, selectedCountry, selectedUniversity, exTypesEng, grade, testType, score)
     }
 
     return (
