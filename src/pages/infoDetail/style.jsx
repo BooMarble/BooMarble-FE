@@ -27,6 +27,7 @@ export const MainDetailsWrapper = styled.div`
     font-size: 18px;
     margin-bottom: 10px;
     color: #333;
+
   }
 
   p {
