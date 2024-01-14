@@ -200,7 +200,7 @@ function Body() {
                     const prev = reviewBox.innerHTML;
 
                     // 새로 추가될 피드
-                    const reviewId = i;
+                    const reviewId = review[i].universityId;
                     const universityName = review[i].universityName;
                     const reviewCount = review[i].universityReviewCnt;
                     const countryName = review[i].universityCountry;
@@ -246,17 +246,15 @@ function Body() {
     // }, []);
 
 
-    // // reviewBox 클릭 시
-    // const handleOnClick = async (e) => {
-    //     e.preventDefault();
-        
-    //     // reviewId 따기
-    //     const currReviewId = e.target.parentNode.id;
-
-    //     // 해당 reviewDetail 페이지로 이동
-    //     navigate(`/reviewDetail`)
-        
-    // }
+    const handleOnClick = async (e) => {
+        e.preventDefault();
+        let reviewId = e.target.parentNode.id;
+        console.log(reviewId);
+        if (reviewId.slice(0,7) === 'tagBox-'){
+            reviewId = reviewId.slice(7);
+        }
+        navigate(`/reviews/${reviewId}`);
+    }
 
     // // 검색 구현
     // const [searchContent, onChangeSearchContent, setSearchContent] = useInput('');
@@ -356,7 +354,7 @@ function Body() {
                         </div>
                     )}
             </div>            
-            <div id="reviewBox"></div>
+            <div id="reviewBox" onClick={handleOnClick}></div>
         </ReviewBody>
         
     )

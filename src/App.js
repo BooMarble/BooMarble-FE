@@ -34,8 +34,8 @@ function App() {
         <Route path={`/info/:universityId`} element={<InfoDetail />}></Route>
         <Route path={`/login`} element={<Login />}></Route>
         <Route path={`/mypage`} element={<MyPage />}></Route>
-        <Route path={`/review`} element={<Review />}></Route>
-        <Route path={`/reviewDetail`} element={<ReviewDetail />}></Route>
+        <Route path={`/reviews`} element={<Review />}></Route>
+        <Route path={`/reviews/:universityId`} element={<ReviewDetail />}></Route>
         <Route path={`/reviewPosting`} element={<ReviewPosting />}></Route>
         <Route path={`textDataPage`} element={<TextDataPage />}></Route>
         <Route path={`/dorm`} element={<Dorm/>}></Route>
