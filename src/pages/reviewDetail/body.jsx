@@ -7,6 +7,7 @@ import scrapBtn from "../../assets/images/scrapBtn.png";
 import { useNavigate } from "react-router-dom";
 
 function Body() {
+    const navigate = useNavigate();
     let {universityId} = useParams(); // URL에서 id 가져오기
   console.log({universityId});
   const [detailInfo, setDetailInfo] = useState({}); // 세부 정보를 저장할 상태
@@ -30,6 +31,16 @@ function Body() {
   if (!detailInfo) {
     return <div>Loading...</div>;
   }
+
+    // 카드 클릭 시
+    const handleOnClick = (e) => {
+      const order = e.target.id;
+      console.log(order);
+      // 기숙사 클릭 시
+      if (order == 'dorm') {
+        navigate(`/reviews/:universityId/dorm`)
+      } 
+    }
     return(
         <ReviewDetailBody>
             <div id="generalInfo">
@@ -43,9 +54,9 @@ function Body() {
                 <p><br />수강<br />교과목<br />리스트</p>
                 <Link to="/reviews/${info.universityId}/dorm">연습삼아</Link>
             </div>
-            <div id="uniqueInfo2">
+            <div id="uniqueInfo2" onClick={handleOnClick}>
                 <p><br />교내<br />활동</p>
-                <p><br />기숙사</p>
+                <p id="dorm"><br />기숙사</p>
                 <p><br />소요<br />비용</p>
             </div>
             <div id="uniqueInfo3">

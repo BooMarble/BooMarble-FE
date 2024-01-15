@@ -44,7 +44,7 @@ function App() {
         <Route path={`/reviews/:universityId`} element={<ReviewDetail />}></Route>
         <Route path={`/reviewPosting`} element={<ReviewPosting />}></Route>
         <Route path={`textDataPage`} element={<TextDataPage />}></Route>
-        <Route path={`/dorm/:universityId`} element={<Dorm/>}></Route>
+        <Route path={`/reviews/:universityId/dorm`} element={<Dorm/>}></Route>
         <Route path={`/login/oauth2/code/google`} element={<Loading />}></Route>
         <Route path={`/accGrade`} element={<AccGrade/>}></Route>
         <Route path={`/activity`} element={<Activity/>}></Route>
