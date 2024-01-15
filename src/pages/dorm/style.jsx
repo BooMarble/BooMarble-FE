@@ -7,17 +7,12 @@ export const Container = styled.div`
 `;
 
 export const DetailContainer = styled.div`
-  background-color: #f0f0f0;
-  border: 1px solid #f0f0f0;
-  padding: 20px;
-  border-radius: 10x;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  margin-top: 20px;
+  padding: 10px;
+`;
+export const DetailBox = styled.div`
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
 `;
 
-export const DormName = styled.div`
-  margin-top: 20px;
-`;
-
-export const DormDes = styled.div`
-  margin-top: 20px;
-`;

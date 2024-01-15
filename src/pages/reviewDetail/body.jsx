@@ -36,10 +36,33 @@ function Body() {
     const handleOnClick = (e) => {
       const order = e.target.id;
       console.log(order);
-      // 기숙사 클릭 시
       if (order == 'dorm') {
-        navigate(`/reviews/:universityId/dorm`)
-      } 
+        navigate(`/reviews/${universityId}/dorm`)
+      }
+      else if (order == 'accGrade') {
+        navigate(`/reviews/${universityId}/accGrade`)
+      }
+      else if (order=='activity'){
+        navigate(`/reviews/${universityId}/activity`)
+      }
+      else if (order=='cost'){
+        navigate(`/reviews/${universityId}/cost`)
+      }
+      else if (order=='courseList'){
+        navigate(`/reviews/${universityId}/courseList`)
+      }
+      else if (order=='etc'){
+        navigate(`/reviews/${universityId}/etc`)
+      }
+      else if (order=='message'){
+        navigate(`/reviews/${universityId}/message`)
+      }
+      else if (order=='textDataPage'){
+        navigate(`/reviews/${universityId}/textDataPage`)
+      }
+      else if (order=='univInfo'){
+        navigate(`/reviews/${universityId}/univInfo`)
+      }
     }
     return(
         <ReviewDetailBody>
@@ -49,20 +72,19 @@ function Body() {
                 <p>대학: {detailInfo.universityName}</p>
             </div>
             <div id="uniqueInfo1">
-                <p><br />출국 전 준비사항</p>
-                <p><br />파견 대학 관련</p>
-                <p><br />수강<br />교과목<br />리스트</p>
-                <Link to="/reviews/${info.universityId}/dorm">연습삼아</Link>
+                <p id="textDataPage"><br />출국 전 준비사항</p>
+                <p id="univInfo"><br />파견 대학 관련</p>
+                <p id="courseList"><br />수강<br />교과목<br />리스트</p>
             </div>
             <div id="uniqueInfo2" onClick={handleOnClick}>
-                <p><br />교내<br />활동</p>
+                <p id="activity"><br />교내<br />활동</p>
                 <p id="dorm"><br />기숙사</p>
-                <p><br />소요<br />비용</p>
+                <p id="cost"><br />소요<br />비용</p>
             </div>
             <div id="uniqueInfo3">
-                <p><br />학점 인정 관련</p>
-                <p><br />후배들<br />한 마디</p>
-                <p><br />기타</p>
+                <p id="accGrade"><br />학점 인정 관련</p>
+                <p id="message"><br />후배들<br />한 마디</p>
+                <p id="etc"><br />기타</p>
             </div>
         </ReviewDetailBody>
     )
