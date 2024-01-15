@@ -1,29 +1,12 @@
 import { Container,DetailContainer,DormName, DormDes} from './style';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+
 function Body() {
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const itemsPerPage = 10;
-  // const pagesPerGroup = 5;
-  // const startItemIndex = (currentPage - 1) * itemsPerPage;
-  // const endItemIndex = startItemIndex + itemsPerPage;
-  // const paginatedItems = travelData.slice(startItemIndex, endItemIndex);
-  // const totalPage = Math.ceil(travelData.length / itemsPerPage);
-  // const totalGroups = Math.ceil(totalPage / pagesPerGroup);
-  // const currentGroup = Math.ceil(currentPage / pagesPerGroup);
-
-  // const startPageIndex = (currentGroup - 1) * pagesPerGroup + 1;
-  // const endPageIndex = Math.min(startPageIndex + pagesPerGroup - 1, totalPage);
-
-  // const handleMainSortChange = (e) => {
-  //   setMainSort(e.target.value);
-  //   setCurrentPage(1);
-  // }
-
-  // const handleMidSortChange = (e) => {
-  //   setMidSort(e.target.value);
-  //   setCurrentPage(1);
-  // }
-
-
+  let {universityId} = useParams(); // URL에서 id 가져오기
+  console.log({universityId});
+  const [detailInfo, setDetailInfo] = useState({}); // 세부 정보를 저장할 상태
     return(
         <Container>
               <h1>기숙사 & 숙소</h1>
