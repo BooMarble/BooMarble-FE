@@ -1,21 +1,34 @@
+import React, { useEffect } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 function Body() {
+    const navigate = useNavigate();
+    //인가 코드
+    let code = new URL(window.location.href).searchParams.get('code');
+    const googleLogin = async (code) => {
+        await axios.get(`https://boomarble.com/login/oauth2/code/google?code=${code}`,)
+        .then((response) => {
+            console.log(response.data); // 넘어온 토큰
 
-    // <pre> 태그 찾기
-    const preTag = document.querySelector('pre');
+            const ACCESS_TOKEN = response.data;
+            console.log(ACCESS_TOKEN);
 
-    if (preTag) {
-    // <pre> 태그에서 텍스트 추출
-    const textContent = preTag.innerText || preTag.textContent;
-
-    // 파싱된 데이터 사용 예시
-    console.log(textContent);
-    } else {
-    console.error('No <pre> tag found.');
+            localStorage.setItem("token", ACCESS_TOKEN); 
+            navigate(`/`)
+        })
+        .catch((err) => {
+            console.log("소셜 로그인 에러", err);
+            window.alert("잠시 후 다시 시도해주세요");
+            navigate(`/login`)
+        })
     }
+    useEffect(() => {
+        if (code) {
+            googleLogin(code);
+        }
+    },[])
 
-    return(
-        <p>부마블</p>
-    )
 }
 
 export default Body;
