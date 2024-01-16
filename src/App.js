@@ -12,7 +12,7 @@ import InfoDetail from "./pages/infoDetail";
 import Login from "./pages/login";
 import MyPage from "./pages/mypage";
 import Review from "./pages/review";
-import ReviewDetail from "./pages/reviewDetail/body";
+import ReviewDetail from "./pages/reviewDetail";
 import ReviewPosting from "./pages/reviewPosting";
 import TextDataPage from "./pages/textDataPage";
 import Dorm from "./pages/dorm"
