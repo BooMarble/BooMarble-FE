@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getPostInfo, addComment } from "../../apis/commDetApi/apis";
+import { getPostInfo, getCommentInfo, addComment, scrapping, notScrapping } from "../../apis/commDetApi/apis";
 import { useParams } from "react-router-dom";
 import notScrapBtn from "../../assets/images/notScrapBtn.png";
 import scrapBtn from "../../assets/images/scrapBtn.png";
@@ -9,7 +9,6 @@ import { DetailBody } from "./style";
 function Body() {
     // postId
     const postId = useParams().communityId;
-    console.log(postId)
 
     // postInfo 가져오기
     const [nickName, setNickName] = useState('');
@@ -35,16 +34,35 @@ function Body() {
         loadPostInfo();
     },[]);
 
+    // 댓글 가져오기
+    const [loadedCommentId, setLoadedCommentId] = useState('');
+    const [loadedCommentContent, setLoadedCommentContent] = useState('');
+    const [commentsLists, setCommentsLists] = useState([]);
+    const loadCommentInfo = async () => {
+        try {
+            const commentInfo = await getCommentInfo(postId);
+            setCommentsLists(commentInfo)
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    useEffect(() => {
+        loadCommentInfo();
+    })
+
     // 스크랩 상태를 관리하는 state
     const [isScrapOpen, setScrapOpen] = useState(false)
     // 스크랩하는 함수
     function openScrap(){
         setScrapOpen(true)
+        scrapping(postId)
     }
 
     // 스크랩 취소하는 함수
     function closeScrap(){
         setScrapOpen(false)
+        notScrapping(postId)
     }
 
     const navigate = useNavigate();
@@ -56,29 +74,60 @@ function Body() {
         e.preventDefault();
         addComment(navigate, postId, commentContent);
         setCommentContent('');
-    } 
+    }
+    
+    // 댓글이 존재한다면 댓글 띄우기
+    const [isComment, setIsComment] = useState(false);
 
     return(
         <DetailBody>
             <div id="userBox">
                 <p id="profile"></p>
-                <p id="name">유저이름</p>
+                <p id="name">{nickName}</p>
             </div>
             <div id="titleBox">
-                <p>제목이랍니다</p>
+                <p>{title}</p>
                 <p id="scrap" onClick={isScrapOpen ? closeScrap : openScrap} 
                         style={{ backgroundImage: isScrapOpen ? `url(${scrapBtn})` : `url(${notScrapBtn})` }}>
                     </p>
             </div>
-            <p>해시태그</p>
-            <p>내용</p>
-            <div id="postingCmts">
-                <textarea 
-                    value={commentContent}
-                    placeholder="댓글을 입력하세요."
-                    onChange={(e) => setCommentContent(e.target.value)}></textarea>
-                <button onClick={handleOnSubmit}>등록</button>
+            <p id="contentBox">{content}</p>
+            <div id="hashTagBox">
+                {hashTags.map((hashTag, index) => (
+                    <p key={index} value={hashTag}>#{hashTag}</p>
+                ) )}
             </div>
+            {commentsLists.map((comments, index) => ( 
+                <div id="commentBox" key={index}>
+                    <div id="commentUserBox">
+                        <p id="commentUserProfile"></p>
+                        <p id="commentUserName">{comments.writer.nickname}</p>
+                        <p id="reply"></p>
+                    </div>
+                    <p id="commentContents">{comments.content}</p>
+                </div>
+            ))}
+            {!isComment && (
+                <div id="ifNoComments-postingCmts">
+                    <textarea 
+                        value={commentContent}
+                        placeholder="댓글을 입력하세요."
+                        onChange={(e) => setCommentContent(e.target.value)}></textarea>
+                    <button onClick={handleOnSubmit}>등록</button>
+                </div>
+                )
+            }
+            {isComment && (
+                <div id="ifComments-postingCmts">
+                    <textarea 
+                        value={commentContent}
+                        placeholder="댓글을 입력하세요."
+                        onChange={(e) => setCommentContent(e.target.value)}></textarea>
+                    <button onClick={handleOnSubmit}>등록</button>
+                </div>
+                )
+            }
+
         </DetailBody>
     )
 }

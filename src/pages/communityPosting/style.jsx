@@ -30,8 +30,6 @@ export const PostBody = styled.div`
             justify-content: space-between;
             align-items: center;
             height: 50px;
-            padding-left: 50px;
-            padding-right: 50px;
 
             #country{
                 p:nth-child(1){

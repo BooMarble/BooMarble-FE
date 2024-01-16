@@ -10,20 +10,14 @@ function Body() {
     const [countries, setCountries] = useState([]);
     const [universities, setUniversities] = useState([]);
     const [exTypes, setExTypes] = useState([]);
+    const semesters = ["19-1", "19-2", "20-1", "20-2", "21-1", "21-2", "22-1", "22-2", "23-1", "23-2", "24-1", "24-2"]
     //선택한 애들
     const [selectedCountry, setSelectedCountry] = useState('');
     const [countryEngName, setCountryEngName] = useState('');
     const [selectedUniversity, setSelectedUniversity] = useState('');
-    const [universityId, setUniversityId] = useState('');
     const [selectedExType, setSelectedExType] = useState('');
-    // 각 언어권에서 필요한 정보
-    const [testType, setTestType] = useState('');
-    const [semester, setSemester] = useState('');
-    const [grade, setGrade] = useState('');
-    const [level, setLevel] = useState('');
-    const [score, setScore] = useState('');
-    const [recommendationLetter, setRecommendationLetter] = useState('');
-    const [chineseType, setChineseType] = useState('');
+    const [exTypesEng, setExTypesEng] = useState('');
+    const [selectedSemester, setSelectedSemester] = useState('');
     const headers = {'X-AUTH-TOKEN': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMUBnbWFpbC5jb20iLCJyb2xlcyI6WyJVU0VSIl0sImlhdCI6MTcwNDgxMTI5NywiZXhwIjoxNzA1NDE2MDk3fQ.cuY3iR5xtDlQ4XmLvxG_J0v1zBSRjDgQ5T7lk8Oim7o'};
 
     // 드롭다운
@@ -40,6 +34,10 @@ function Body() {
 
     const handleExtypeChange = (e) => {
         setSelectedExType(e.target.value);
+    }
+
+    const handleSemesterChange = (e) => {
+        setSelectedSemester(e.target.value);
     }
 
     useEffect(() => {
@@ -66,7 +64,6 @@ function Body() {
             const selectedCountryInfo = countries.find(country => country.englishName === selectedCountry);
             if (selectedCountryInfo) {
                 setUniversities(selectedCountryInfo.universities);
-                setCountryEngName(selectedCountryInfo.englishName);
             } else {
                 console.error('Selected country not found');
             }
@@ -79,12 +76,14 @@ function Body() {
             const selectedUniversityInfo = selectedCountryInfo?.universities.find(university => university.id === parseInt(selectedUniversity));
             if (selectedUniversityInfo) {
                 setExTypes([selectedUniversityInfo.exType]);
-                setUniversityId(selectedUniversityInfo.id);
+                setExTypesEng(selectedUniversityInfo.englishExType);
             } else {
                 console.error('Selected university not found');
             }
         }
-    },  [selectedUniversity, countries, selectedCountry, countryEngName]);
+    },  [selectedUniversity, countries, selectedCountry]);
+
+    // 학기
 
     // form 내의 정보
     const [title, onChangeTitle, setTitle] = useInput('');
@@ -124,7 +123,7 @@ function Body() {
 
     // 등록하기 버튼 누를 시
     const navigate = useNavigate();
-    const handleSubmitClick = (e) => {
+    const handleSubmitClick = async (e) => {
         e.preventDefault();
         if (!title){
             alert('제목을 작성해주세요.');
@@ -133,7 +132,7 @@ function Body() {
             alert('내용을 작성해주세요.');
         }
         else{
-            posting(navigate, title, content, countryEngName, universityId, selectedExType, semester, hashTags)
+            await posting(navigate, title, content, selectedCountry, selectedUniversity, exTypesEng, selectedSemester, hashTags)
         }
     }
 
@@ -143,34 +142,39 @@ function Body() {
                 <input type='text' id='titleInput' placeholder='제목' onChange={onChangeTitle}/>
                 <textarea id='textarea' placeholder='내용을 입력하세요.' onChange={onChangeContent}></textarea>
                 <div id="dropdownContainer">
-                    <label htmlFor="countryDropDown">국가</label>
                     <select id="countryDropDown" onChange={handleCountryChange} value={selectedCountry}>
-                        <option value="">대학을 선택하세요</option>
+                        <option value="">국가</option>
                         {countries.map((country, index) => (
                             <option key={index} value={country.englishName}>
                                 {country.name}
                             </option>
                         ))}
                     </select>
-                    <label htmlFor="universityDropDown">대학</label>
                     <select id="universityDropDown" onChange={handleUniversityChange} value={selectedUniversity}>
-                        <option value="">대학을 선택하세요</option>
+                        <option value="">대학</option>
                         {universities.map((university, index) => (
                             <option key={index} value={university.id}>
                                 {university.name}
                             </option>
                         ))}
                     </select>
-                    <label htmlFor="exTypeDropDown">교환유형</label>
                     <select id="exTypeDropDown" onChange={handleExtypeChange} value={selectedExType} disabled={!selectedUniversity}>
-                        <option value="">대학을 선택하세요</option>
+                        <option value="">교환유형</option>
                         {exTypes.map((exType, index) => (
                             <option key={index} value={exType}>
                                 {exType}
                             </option>
                         ))}
                     </select>
-                    <input type='text' id='semesterInput' value={semester} placeholder='학기' onChange={(e) => setSemester(e.target.value)} />
+                    <select id="semesterDropDown" onChange={handleSemesterChange} value={selectedSemester}>
+                        <option value="">학기</option>
+                        {semesters.map((semester, index) => (
+                            <option key={index} value={semester}>
+                                {semester}
+                            </option>
+                        ))}
+                    </select>
+                    {/* <input type='text' id='semesterInput' value={semester} placeholder='학기' onChange={(e) => setSemester(e.target.value)} /> */}
                 </div>
                 <div id="hashTagBox">
                     <p>해시태그</p>

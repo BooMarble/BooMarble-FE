@@ -31,7 +31,7 @@ function App() {
         <Route path={`/`} element={<Main />}></Route>
         <Route path={`/chat`} element={<Chat />}></Route>
         <Route path={`/chatDetail`} element={<ChatDetail />}></Route>
-        <Route path={`/community`} element={<Community />}></Route>
+        <Route path={`/posts`} element={<Community />}></Route>
         <Route path={`/posts/:communityId`} element={<CommunityDetail />}></Route>
         <Route path={`communityPosting`} element={<CommunityPosting />}></Route>
         <Route path={`/reviews/:universityId/cost`} element={<Cost />}></Route>

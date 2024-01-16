@@ -1,15 +1,15 @@
 import axios from "axios";
 
 // 게시물 작성하는 함수
-export const posting = async(navigate, title, content, countryEngName, universityId, selectedExType, semester, hashTags) => {
+export const posting = async(navigate, title, content, selectedCountry, selectedUniversity, exTypesEng, selectedSemester, hashTags) => {
     await axios.post(`https://boomarble.com/posts`, 
     {
         'postTitle':title, 
         'postContent':content, 
-        'postCountry':countryEngName, 
-        'postUniversityId': universityId, 
-        'postExType': selectedExType, 
-        'postSemester': semester, 
+        'postCountry':selectedCountry, 
+        'postUniversityId': selectedUniversity, 
+        'postExType': exTypesEng, 
+        'postSemester': selectedSemester, 
         'postTags':hashTags
     },
     {
