@@ -38,3 +38,54 @@ export const postEnglishUser = async (semester, selectedCountry, selectedUnivers
 
     }
 }
+// 일본어권: 유저 스펙 보내는 함수
+export const postChineseUser = async (semester, selectedCountry, selectedUniversity, exTypesEng, grade, level, score,hasRecomendationLetter) => {
+    try {
+        const response = await axios.post(`https://boomarble.com/prediction/japanese`,
+            {
+                "semester": semester,
+                "country": selectedCountry,
+                "universityId": parseInt(selectedUniversity),
+                "exType": exTypesEng,
+                "grade": parseFloat(grade),
+                "level": level,
+                "score": parseFloat(score),
+                "hasRecomendationLetter":hasRecomendationLetter
+            },
+            {
+                headers: {
+                    'X-AUTH-TOKEN': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMUBnbWFpbC5jb20iLCJyb2xlcyI6WyJVU0VSIl0sImlhdCI6MTcwNDgxMTI5NywiZXhwIjoxNzA1NDE2MDk3fQ.cuY3iR5xtDlQ4XmLvxG_J0v1zBSRjDgQ5T7lk8Oim7o',
+                },
+            });
+        console.log(response.data.numOfApplicant);
+    } catch (error) {
+        console.log(error.response.data);
+
+    }
+}
+// 중국어권: 유저 스펙 보내는 함수
+export const postJapaneseUser = async (semester, selectedCountry, selectedUniversity, exTypesEng, grade, level, score, chineseType, testType) => {
+    try {
+        const response = await axios.post(`https://boomarble.com/prediction/chinese`,
+            {
+                "semester": semester,
+                "country": selectedCountry,
+                "universityId": parseInt(selectedUniversity),
+                "exType": exTypesEng,
+                "grade": parseFloat(grade),
+                "level": level,
+                "score": parseFloat(score),
+                "chineseType": chineseType,
+                "testType": testType
+            },
+            {
+                headers: {
+                    'X-AUTH-TOKEN': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMUBnbWFpbC5jb20iLCJyb2xlcyI6WyJVU0VSIl0sImlhdCI6MTcwNDgxMTI5NywiZXhwIjoxNzA1NDE2MDk3fQ.cuY3iR5xtDlQ4XmLvxG_J0v1zBSRjDgQ5T7lk8Oim7o',
+                },
+            });
+        console.log(response.data.numOfApplicant);
+    } catch (error) {
+        console.log(error.response.data);
+
+    }
+}

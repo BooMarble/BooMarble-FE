@@ -12,7 +12,7 @@ function Footer() {
         <FooterLink as={Link} to='../community'>
             <img src={community_img} alt="community"/>
         </FooterLink>
-        <FooterLink as={Link} to= '../review'>
+        <FooterLink as={Link} to= '../reviews'>
             <img src={review_img} alt="review"/>
         </FooterLink>
         <FooterLink as={Link} to= '../'>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { fetchCountries, getLangRegion, postEnglishUser } from "../../apis/mypageApi/apis";
-
+import { fetchCountries, getLangRegion, postEnglishUser, postJapaneseUser, postChineseUser } from "../../apis/mypageApi/apis";
+  
 function Body() {
     // 드롭다운들 담을 곳
     const [countries, setCountries] = useState([]);
@@ -17,7 +17,7 @@ function Body() {
     const [grade, setGrade] = useState('');
     const [level, setLevel] = useState('');
     const [score, setScore] = useState('');
-    const [recommendationLetter, setRecommendationLetter] = useState('');
+    const [recommendationLetter, setRecommendationLetter] = useState(false);
     const [chineseType, setChineseType] = useState('');
     const headers = {'X-AUTH-TOKEN': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMUBnbWFpbC5jb20iLCJyb2xlcyI6WyJVU0VSIl0sImlhdCI6MTcwNDgxMTI5NywiZXhwIjoxNzA1NDE2MDk3fQ.cuY3iR5xtDlQ4XmLvxG_J0v1zBSRjDgQ5T7lk8Oim7o'};
 
@@ -27,12 +27,10 @@ function Body() {
         setSelectedUniversity('');
         setSelectedExType('');
     }
-
     const handleUniversityChange = (e) => {
         setSelectedUniversity(e.target.value);
         setSelectedExType('');
     }
-
     const handleExtypeChange = (e) => {
         setSelectedExType(e.target.value);
     }
@@ -116,14 +114,20 @@ function Body() {
     // search 누를 시
     const handleOnSubmit = async (e) => {
         e.preventDefault();
-        await postEnglishUser(semester, selectedCountry, selectedUniversity, exTypesEng, grade, testType, score)
-    }
+        if (langRegion === 'english') {
+            await postEnglishUser(semester, selectedCountry, selectedUniversity, exTypesEng, grade, testType, score);
+          } else if (langRegion === 'japanese') {
+            // Handle Japanese-specific logic (e.g., ask for recommendation letter)
+            await postJapaneseUser(semester, selectedCountry, selectedUniversity, exTypesEng, grade, level, score, recommendationLetter);
+          } else if (langRegion === 'chinese') {
+            await postChineseUser(semester, selectedCountry, selectedUniversity, exTypesEng, grade, level, score, chineseType, testType);
+          }};
 
     return (
         <form onSubmit={handleOnSubmit}>
             <label htmlFor="countryDropDown">국가</label>
             <select id="countryDropDown" onChange={handleCountryChange} value={selectedCountry}>
-                <option value="">대학을 선택하세요</option>
+                <option value="">국가를 선택하세요</option>
                 {countries.map((country, index) => (
                     <option key={index} value={country.englishName}>
                         {country.name}
@@ -141,7 +145,7 @@ function Body() {
             </select>
             <label htmlFor="exTypeDropDown">교환유형</label>
             <select id="exTypeDropDown" onChange={handleExtypeChange} value={selectedExType} disabled={!selectedUniversity}>
-                <option value="">대학을 선택하세요</option>
+                <option value="">교환 유형을 선택하세요</option>
                 {exTypes.map((exType, index) => (
                     <option key={index} value={exType}>
                         {exType}
@@ -185,7 +189,115 @@ function Body() {
                     />
                 </div>
             )}
-            <button type="submit" id="completeBtn">Search</button>            
+
+            {countryFlag === 2 && (
+                <div id="japanese">
+                    <label htmlFor="semesterInput">Semester</label>
+                    <input
+                        type="text"
+                        id="semesterInput"
+                        value={semester}
+                        onChange={(e) => setSemester(e.target.value)}
+                    />
+                    <label htmlFor="gradeInput">Grade</label>
+                    <input
+                        type="text"
+                        id="gradeInput"
+                        value={grade}
+                        onChange={(e) => setGrade(e.target.value)}
+                    />
+                    <label htmlFor="levelDropdown">Level</label>
+                    <select
+                        id="levelDropdown"
+                        onChange={(e) => setLevel(e.target.value)}
+                        value={testType}
+                    >
+                        <option value="">Select Test Type</option>
+                        <option value="N1">N1</option>
+                        <option value="N2">N2</option>
+                        <option value="N3">N3</option>
+                        <option value="N4">N4</option>
+                        <option value="N5">N5</option>
+                    </select>
+                    <label htmlFor="scoreInput">Score</label>
+                    <input
+                        type="text"
+                        id="scoreInput"
+                        value={score}
+                        placeholder="점수를 입력하세요"
+                        onChange={(e) => setScore(e.target.value)}
+                    />
+                    <input
+                        type="text"
+                        id="scoreInput"
+                        value={score}
+                        placeholder="점수를 입력하세요"
+                        onChange={(e) => setScore(e.target.value)}/>
+                    <label htmlFor="recommendationLetterDropdown">Recommendation Letter</label>
+                   <select
+                    id="recommendationLetterDropdown"
+                    onChange={(e) => setRecommendationLetter(e.target.value === 'true')}
+                    value={recommendationLetter ? 'true' : 'false'}
+>
+                   <option value="">Select Recommendation Letter</option>
+                   <option value="true">Yes</option>
+                   <option value="false">No</option>
+                   </select>
+                </div>
+            )}
+            {countryFlag === 3 && (
+                <div id="chinese">
+                    <label htmlFor="semesterInput">Semester</label>
+                    <input
+                        type="text"
+                        id="semesterInput"
+                        value={semester}
+                        onChange={(e) => setSemester(e.target.value)}
+                    />
+                    <label htmlFor="gradeInput">Grade</label>
+                    <input
+                        type="text"
+                        id="gradeInput"
+                        value={grade}
+                        onChange={(e) => setGrade(e.target.value)}
+                    />
+                    <label htmlFor="levelDropdown">Level</label>
+                    <label htmlFor="scoreInput">Score</label>
+                    <input
+                        type="text"
+                        id="scoreInput"
+                        value={score}
+                        placeholder="점수를 입력하세요"
+                        onChange={(e) => setScore(e.target.value)}
+                    />
+                    <input
+                        type="text"
+                        id="scoreInput"
+                        value={score}
+                        placeholder="점수를 입력하세요"
+                        onChange={(e) => setScore(e.target.value)}/>
+                    <label htmlFor="recommendationLetterDropdown">Recommendation Letter</label>
+                    <select
+                        id="chineseTypeDropdown"
+                        onChange={(e) => setChineseType(e.target.value)}
+                        value={chineseType}>
+                        <option value="">Select Chinese Type</option>
+                        <option value="LT">LT</option>
+                        <option value="UG">UG</option>
+                        <option value="etc">etc</option>
+                    </select>
+                    <select
+                        id="testType"
+                        onChange={(e) => setTestType(e.target.value)}
+                        value={testType}>
+                        <option value="">Select Test Type</option>
+                        <option value="HSK">HSK</option>
+                        <option value="TOCFL">TOCFL</option>
+                    </select>
+                </div>
+            )}
+            <button type="submit" id="completeBtn">Search</button>   
+                     
         </form>
     );
 }
