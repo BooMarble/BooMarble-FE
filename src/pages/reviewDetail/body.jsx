@@ -71,7 +71,7 @@ function Body() {
                 <p>국가: {detailInfo.universityCountry}</p>
                 <p>대학: {detailInfo.universityName}</p>
             </div>
-            <div id="uniqueInfo1">
+            <div id="uniqueInfo1" onClick={handleOnClick}>
                 <p id="textDataPage"><br />출국 전 준비사항</p>
                 <p id="univInfo"><br />파견 대학 관련</p>
                 <p id="courseList"><br />수강<br />교과목<br />리스트</p>
@@ -81,7 +81,7 @@ function Body() {
                 <p id="dorm"><br />기숙사</p>
                 <p id="cost"><br />소요<br />비용</p>
             </div>
-            <div id="uniqueInfo3">
+            <div id="uniqueInfo3" onClick={handleOnClick}>
                 <p id="accGrade"><br />학점 인정 관련</p>
                 <p id="message"><br />후배들<br />한 마디</p>
                 <p id="etc"><br />기타</p>
