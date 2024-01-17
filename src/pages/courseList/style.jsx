@@ -9,6 +9,8 @@ export const Container = styled.div`
 export const DetailContainer = styled.div`
   margin-top: 20px;
   padding: 10px;
+  overflow: auto;
+  max-height: 530px;
 `;
 export const DetailBox = styled.div`
   border: 1px solid #ddd;

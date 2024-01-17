@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom'; // React Router의 useParams를 사용하여 URL의 파라미터를 가져옴
+import { useParams, useNavigate } from 'react-router-dom'; // React Router의 useParams를 사용하여 URL의 파라미터를 가져옴
 import axios from 'axios';
+import {liking, notLiking } from "../../apis/infoApi/apis";
+import likeBtn from"../../assets/images/likeBtn.png"
+import nonlikeBtn from"../../assets/images/nonlikeBtn.png"
 import {Container, DetailWrapper, MainDetailsWrapper, RequirementWrapper, EnglishContainer, JapaneseContainer, ChineseContainer, CostWrapper, ExtradetailWrapper} from './style';
-
 function Body() {
   let {universityId} = useParams(); // URL에서 id 가져오기
   console.log({universityId});
   const [detailInfo, setDetailInfo] = useState({}); // 세부 정보를 저장할 상태
-
+  const [isLikeOpen, setLikeOpen] = useState(false)
   useEffect(() => {
     // id에 해당하는 세부 정보를 가져오는 함수
     const fetchDetailInfo = async () => {
       try {
         const response = await axios.get(`https://boomarble.com/info/${universityId}`,
-        {headers: {  'X-AUTH-TOKEN': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMUBnbWFpbC5jb20iLCJyb2xlcyI6WyJVU0VSIl0sImlhdCI6MTcwNDgxMTI5NywiZXhwIjoxNzA1NDE2MDk3fQ.cuY3iR5xtDlQ4XmLvxG_J0v1zBSRjDgQ5T7lk8Oim7o',
+        {headers: {  'X-AUTH-TOKEN': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMUBnbWFpbC5jb20iLCJyb2xlcyI6WyJVU0VSIl0sImlhdCI6MTcwNTQxMTkzNCwiZXhwIjoxNzA2MDE2NzM0fQ.t0PaVOz4OO1lY6Pj5cGDOQzL_vArxMbeT6EgHL0pDiE',
           }}) ;
           console.log(response.data|| response.data[0]);
         setDetailInfo(response.data|| response.data[0]); // 받아온 세부 정보를 상태에 설정
@@ -27,11 +29,27 @@ function Body() {
   if (!detailInfo) {
     return <div>Loading...</div>;
   }
+  //좋아요
+
+  // 좋아요 상태를 관리하는 state
+  function openLike(){
+      setLikeOpen(true)
+      liking(universityId)
+  }
+
+  // 좋아요 취소하는 함수
+  function closeLike(){
+      setLikeOpen(false)
+      notLiking(universityId)
+  }
   return ( 
     <Container>
     <h2> {detailInfo.universityName}</h2>
     <DetailWrapper>
     <MainDetailsWrapper>
+    <p id="like" onClick={isLikeOpen ? closeLike : openLike} 
+                        style={{ backgroundImage: isLikeOpen ? `url(${likeBtn})` : `url(${nonlikeBtn})` }}>
+                    </p>
     <h2>Basic Info</h2>
     <h3>유형</h3> 
     <p>{detailInfo.exType}</p>

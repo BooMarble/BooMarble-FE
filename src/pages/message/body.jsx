@@ -34,7 +34,7 @@ function Body() {
         <Container>
               <h1>후배들에게 한마디</h1>
               <DetailContainer>
-              {detailInfo.revieEtcDTOList.map((review, index) => (
+              {detailInfo.reviewMessageDTOList.map((review, index) => (
              <DetailBox key={index}>
              <h2>{review.writer.nickname}</h2>
              <p>{review.message}</p>

@@ -34,12 +34,12 @@ function Body() {
         <Container>
               <h1>교환&파견 대학 관련</h1>
               <DetailContainer>
-              {detailInfo.revieEtcDTOList.map((review, index) => (
+              {detailInfo.reviewUnivInfoDTOList.map((review, index) => (
              <DetailBox key={index}>
              <h2>{review.writer.nickname}</h2>
-             <p>{review.transportation}</p>
-             <p>{review.enrollment}</p>
-             <p>{review.program}</p>
+             <p>교통수단: {review.transportation}</p>
+             <p>등록&입학: {review.enrollment}</p>
+             <p>프로그램: {review.program}</p>
              </DetailBox>
         ))}
       </DetailContainer>

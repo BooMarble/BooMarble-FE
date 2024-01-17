@@ -37,10 +37,10 @@ function Body() {
                 {detailInfo.reviewCostDTOList.map((review, index) => (
                   <DetailBox key={index}>
                     <h2>{review.writer.nickname}</h2>
-                    <p>항공료: {review.dormitoryDesc}</p>
-                    <p>보험: {review.dormitoryDesc}</p>
+                    <p>항공료: {review.airfare}</p>
+                    <p>보험: {review.insurance}</p>
                     <p>기숙사, 식비, 수업료: {review.totalCost}</p>
-                    <p>기타 생활비: {review.dormitoryDesc}</p>
+                    <p>기타 생활비: {review.costEtc}</p>
                   </DetailBox>
                 ))}
                 </DetailContainer>

@@ -13,7 +13,7 @@ function Body() {
     // id에 해당하는 세부 정보를 가져오는 함수
     const fetchDetailInfo = async () => {
       try {
-        const response = await axios.get(`https://boomarble.com/reviews/${universityId}/univInfo`,
+        const response = await axios.get(`https://boomarble.com/reviews/${universityId}/preparation`,
         {headers: {'X-AUTH-TOKEN': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMUBnbWFpbC5jb20iLCJyb2xlcyI6WyJVU0VSIl0sImlhdCI6MTcwNDgxMTI5NywiZXhwIjoxNzA1NDE2MDk3fQ.cuY3iR5xtDlQ4XmLvxG_J0v1zBSRjDgQ5T7lk8Oim7o',
           }}) ;
           console.log(response.data|| response.data[0]);
@@ -34,7 +34,7 @@ function Body() {
         <Container>
               <h1>출국 전 준비사항</h1>
               <DetailContainer>
-              {detailInfo.revieEtcDTOList.map((review, index) => (
+              {detailInfo.reviewPrepDTOList.map((review, index) => (
              <DetailBox key={index}>
              <h2>{review.writer.nickname}</h2>
              <h3>입학서가서 작성 시 유의사항</h3>

@@ -37,7 +37,7 @@ function Body() {
         {detailInfo.reviewActivityDTOList.map((review, index) => (
           <DetailBox key={index}>
             <h2>{review.writer.nickname}</h2>
-            <p>활동 후기: {review.acivities}</p>
+            <p>활동 후기: {review.activities}</p>
           </DetailBox>
         ))}
         </DetailContainer>

@@ -270,13 +270,6 @@ function Body() {
                         placeholder="점수를 입력하세요"
                         onChange={(e) => setScore(e.target.value)}
                     />
-                    <input
-                        type="text"
-                        id="scoreInput"
-                        value={score}
-                        placeholder="점수를 입력하세요"
-                        onChange={(e) => setScore(e.target.value)}/>
-                    <label htmlFor="recommendationLetterDropdown">Recommendation Letter</label>
                     <select
                         id="chineseTypeDropdown"
                         onChange={(e) => setChineseType(e.target.value)}

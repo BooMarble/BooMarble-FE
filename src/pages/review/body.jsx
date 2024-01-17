@@ -269,12 +269,6 @@ function Body() {
 
     return(
         <ReviewBody>
-            {/* <input
-                id="searchInput"
-                type="text"
-                placeholder="검색"
-                // onChange={onChangeSearchContent}
-            /> */}
             <div id="dropdownContainer">
                 <div id="country">
                     <p id="countryName" onClick={isCountryOpen ? closeCountry : openCountry}>
@@ -353,7 +347,7 @@ function Body() {
                             <p>인기순</p>
                         </div>
                     )}
-            </div>            
+            </div> 
             <div id="reviewBox" onClick={handleOnClick}></div>
         </ReviewBody>
         

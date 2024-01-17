@@ -13,7 +13,7 @@ function Body() {
     // id에 해당하는 세부 정보를 가져오는 함수
     const fetchDetailInfo = async () => {
       try {
-        const response = await axios.get(`https://boomarble.com/reviews/${universityId}/courseList`,
+        const response = await axios.get(`https://boomarble.com/reviews/${universityId}/subjects`,
         {headers: {'X-AUTH-TOKEN': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMUBnbWFpbC5jb20iLCJyb2xlcyI6WyJVU0VSIl0sImlhdCI6MTcwNDgxMTI5NywiZXhwIjoxNzA1NDE2MDk3fQ.cuY3iR5xtDlQ4XmLvxG_J0v1zBSRjDgQ5T7lk8Oim7o',
           }}) ;
           console.log(response.data|| response.data[0]);
@@ -37,10 +37,14 @@ function Body() {
         {detailInfo.reviewSubjectsDTOList.map((review, index) => (
           <DetailBox key={index}>
             <h2>{review.writer.nickname}</h2>
-            <p>과목 코드: {review.subjects.code}</p>
-            <p>과목명: {review.subjects.className}</p>
-            <p>학점: {review.subjects.grade}</p>
-            <p>만족도: {review.subjects.satisfied}</p>
+            {review.subjects.map((subject, subIndex) => (
+            <div key={subIndex}>
+              <p>과목 코드: {subject.code}</p>
+              <p>과목명: {subject.className}</p>
+              <p>학점: {subject.grade}</p>
+              <p>만족도: {subject.satisfied}</p>
+            </div>
+          ))}
           </DetailBox>
         ))}
         </DetailContainer>
