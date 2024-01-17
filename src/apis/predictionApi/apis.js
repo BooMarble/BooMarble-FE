@@ -40,6 +40,7 @@ export const postEnglishUser = async (semester, selectedCountry, selectedUnivers
 }
 // 일본어권: 유저 스펙 보내는 함수
 export const postChineseUser = async (semester, selectedCountry, selectedUniversity, exTypesEng, grade, level, score,hasRecomendationLetter) => {
+    let pre=[]
     try {
         const response = await axios.post(`https://boomarble.com/prediction/japanese`,
             {
@@ -57,11 +58,12 @@ export const postChineseUser = async (semester, selectedCountry, selectedUnivers
                     'X-AUTH-TOKEN': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMUBnbWFpbC5jb20iLCJyb2xlcyI6WyJVU0VSIl0sImlhdCI6MTcwNDgxMTI5NywiZXhwIjoxNzA1NDE2MDk3fQ.cuY3iR5xtDlQ4XmLvxG_J0v1zBSRjDgQ5T7lk8Oim7o',
                 },
             });
-        console.log(response.data.numOfApplicant);
+        console.log(response.data.rankings);
+        pre=response.data.rangkings
     } catch (error) {
         console.log(error.response.data);
-
     }
+    return pre;
 }
 // 중국어권: 유저 스펙 보내는 함수
 export const postJapaneseUser = async (semester, selectedCountry, selectedUniversity, exTypesEng, grade, level, score, chineseType, testType) => {

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { StyledCalendar,PopularKeywordsList, KeywordItem} from './style';
+import { Container, StyledCalendar,PopularKeywordsList, KeywordItem, CommunityPostsContainer, CommunityPostItem} from './style';
 import styled from 'styled-components';
 
 function Body() {
@@ -50,14 +50,14 @@ function Body() {
   useEffect(() => {
     const fetchHotPosts = async () => {
       try {
-        const response = await fetch('https://boomarble.com/hotPosts', {
+        const response = await fetch('https://boomarble.com/posts/hotPosts', {
           headers: headers
         });
         if (response.ok) {
           const data = await response.json();
-          setHotPosts(data.hotPosts);
+          setHotPosts(data.communityLists);
         } else {
-          throw new Error('Failed to fetch data');
+          throw new Error(`Failed to fetch data. Status: ${response.status}, ${response.statusText}`);
         }
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -68,6 +68,7 @@ function Body() {
 
   return (
     <div>
+      <Container>
       <PopularKeywordsList>
       <h2>인기 검색어</h2>
         {popularKeywords.map((keyword, index) => (
@@ -83,19 +84,20 @@ function Body() {
           locale="en-US"
           tileContent={tileContent}
         />
-        <div>
-      <h2>커뮤니티 인기글</h2>
+        <CommunityPostsContainer>
+        <h2>커뮤니티 인기글</h2>
         {hotPosts.map((post, index) => (
-          <div key={index}>
-             <h3>{post.communityTitle}</h3>
-    <ul>
-      {post.communityTagList.map((tag, tagIndex) => (
-        <li key={tagIndex}>{tag}</li>
-      ))}
-    </ul>
-          </div>
+          <CommunityPostItem key={index}>
+            <h3>{post.communityTitle}</h3>
+            <ul>
+              {post.communityTagList.map((tag, tagIndex) => (
+                <li key={tagIndex}>{tag}</li>
+              ))}
+            </ul>
+          </CommunityPostItem>
         ))}
-      </div>
+      </CommunityPostsContainer>
+      </Container>
     </div>
   );
 }

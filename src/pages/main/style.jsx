@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 import Calendar from 'react-calendar';
 
+export const Container=styled.div`
+  max-height: 600px;
+  overflow: auto;
+`
 export const PopularKeywordsList = styled.ul`
   list-style: none;
   width: 300px;
@@ -26,6 +30,41 @@ span {
 span:first-child {
   font-weight: bold;
 }
+`;
+export const CommunityPostsContainer = styled.div`
+margin-top: 20px;
+list-style: none;
+max-width: 350px;
+margin: 0 auto;
+  h2{
+    font-size: 20px;
+  }
+`;
+
+export const CommunityPostItem = styled.div`
+  margin-bottom: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      display: inline-block;
+      margin-right: 10px;
+      font-size: 14px;
+      color: #555;
+    }
+  }
 `;
 export const StyledCalendar = styled(Calendar)`
     width: 350px;

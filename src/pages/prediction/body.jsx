@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { fetchCountries, getLangRegion, postEnglishUser, postJapaneseUser, postChineseUser } from "../../apis/mypageApi/apis";
+import { fetchCountries, getLangRegion, postEnglishUser, postJapaneseUser, postChineseUser } from "../../apis/predictionApi/apis";
 import {FormContainer,Label,Select,Button,Container,} from "./style";
 function Body() {
     // 드롭다운들 담을 곳
@@ -20,7 +20,9 @@ function Body() {
     const [recommendationLetter, setRecommendationLetter] = useState(false);
     const [chineseType, setChineseType] = useState('');
     const headers = {'X-AUTH-TOKEN': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMUBnbWFpbC5jb20iLCJyb2xlcyI6WyJVU0VSIl0sImlhdCI6MTcwNTQxMTkzNCwiZXhwIjoxNzA2MDE2NzM0fQ.t0PaVOz4OO1lY6Pj5cGDOQzL_vArxMbeT6EgHL0pDiE'};
-
+    //모의지원 최종 결과 보여주기
+    const [searchResult, setSearchResult] = useState(null);
+    const [precautions, setPrecautions] = useState([]);
     // 드롭다운
     const handleCountryChange = (e) => {
         setSelectedCountry(e.target.value);
@@ -112,17 +114,30 @@ function Body() {
     }, [langRegion])
 
     // search 누를 시
+    const handleApiResponse = (response) => {
+        setSearchResult(response.data);
+        setPrecautions(response.data.precautions);};
     const handleOnSubmit = async (e) => {
         e.preventDefault();
-        if (langRegion === 'english') {
-            await postEnglishUser(semester, selectedCountry, selectedUniversity, exTypesEng, grade, testType, score);
-          } else if (langRegion === 'japanese') {
-            // Handle Japanese-specific logic (e.g., ask for recommendation letter)
-            await postJapaneseUser(semester, selectedCountry, selectedUniversity, exTypesEng, grade, level, score, recommendationLetter);
-          } else if (langRegion === 'chinese') {
-            await postChineseUser(semester, selectedCountry, selectedUniversity, exTypesEng, grade, level, score, chineseType, testType);
-          }};
-
+        try {
+            let response;
+    
+            if (langRegion === 'english') {
+                response = await postEnglishUser(semester, selectedCountry, selectedUniversity, exTypesEng, grade, testType, score);
+            } else if (langRegion === 'japanese') {
+                response = await postJapaneseUser(semester, selectedCountry, selectedUniversity, exTypesEng, grade, level, score, recommendationLetter);
+            } else if (langRegion === 'chinese') {
+                response = await postChineseUser(semester, selectedCountry, selectedUniversity, exTypesEng, grade, level, score, chineseType, testType);
+            }
+    
+            console.log('API Response:', response); // Log the entire response object
+    
+            handleApiResponse(response);
+        } catch (error) {
+            console.log('Error in handleOnSubmit:', error);
+            // Handle the error as needed
+        }
+    };
     return (
         <FormContainer onSubmit={handleOnSubmit}>
             <Label htmlFor="countryDropDown">국가</Label>
@@ -292,8 +307,29 @@ function Body() {
             )}
             </Container>
             <Button type="submit" id="completeBtn">Search</Button>   
-                     
+              {/* 최종 결과 표시 */}
+              {searchResult && searchResult.numOfApplicant !== undefined && (
+    <div>
+        <p>지원자 수: {searchResult.numOfApplicant}</p>
+        {/* 랭킹 정보 표시 */}
+        {searchResult.rankings && searchResult.rankings.map((ranking, index) => (
+            <div key={index}>
+                <p>Score: {ranking.score}</p>
+                <p>Rank: {ranking.rankNum}</p>
+                <p>User ID: {ranking.userId}</p>
+                <p>User: {ranking.user.toString()}</p>
+            </div>
+        ))}
+        {/* 주의사항 표시 */}
+        <ul>
+            {precautions && precautions.map((precaution, index) => (
+                <li key={index}>{precaution}</li>
+            ))}
+        </ul>
+    </div>
+)}
         </FormContainer>
+
     );
 }
 
