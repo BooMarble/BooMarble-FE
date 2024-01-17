@@ -43,6 +43,7 @@ function Body() {
       setLikeOpen(false)
       notLiking(universityId)
   }
+
   return ( 
     <Container>
     <h2> {detailInfo.universityName}</h2>
@@ -50,7 +51,7 @@ function Body() {
     <MainDetailsWrapper>
     <p id="like" onClick={isLikeOpen ? closeLike : openLike} 
                         style={{ backgroundImage: isLikeOpen ? `url(${likeBtn})` : `url(${nonlikeBtn})` }}></p>
-    <Link to='../chat'><img src={chat_img}></img></Link>
+    <img id="chat" src={chat_img}></img>
     <h2>Basic Info</h2>
     <h3>유형</h3> 
     <p>{detailInfo.exType}</p>

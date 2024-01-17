@@ -30,6 +30,7 @@ export const CommunityBody = styled.div`
         margin-bottom: 0;
     }
     #sorting{
+        margin-top: 15px;
         position: relative;
         display: flex;
         justify-content: right;

@@ -173,7 +173,7 @@ function Body() {
                 placeholder="검색"
                 // onChange={onChangeSearchContent}
             />
-            <p id="filterBtn"></p>
+            {/* <p id="filterBtn"></p> */}
             <div id="sorting">
                     <p onClick={isSortingOpen ? closeSorting : openSorting}>
                         {isSortingOpen ? '최신순▲' : '최신순▼'}

@@ -16,5 +16,11 @@ export const DetailBox = styled.div`
   border: 1px solid #ddd;
   padding: 10px;
   margin-bottom: 10px;
+
+  img{
+    width: 25px;
+    height: 25px;
+    display: block; 
+  }
 `;
 

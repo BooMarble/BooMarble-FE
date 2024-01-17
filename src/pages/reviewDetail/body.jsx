@@ -64,6 +64,7 @@ function Body() {
         navigate(`/reviews/${universityId}/univInfo`)
       }
     }
+
     return(
         <ReviewDetailBody>
             <div id="generalInfo">

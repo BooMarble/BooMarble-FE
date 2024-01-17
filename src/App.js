@@ -33,7 +33,7 @@ function App() {
         <Route path={`/chatDetail`} element={<ChatDetail />}></Route>
         <Route path={`/posts`} element={<Community />}></Route>
         <Route path={`/posts/:communityId`} element={<CommunityDetail />}></Route>
-        <Route path={`communityPosting`} element={<CommunityPosting />}></Route>
+        <Route path={`/communityPosting`} element={<CommunityPosting />}></Route>
         <Route path={`/reviews/:universityId/cost`} element={<Cost />}></Route>
         <Route path={`/reviews/:universityId/courseList`} element={<CourseList />}></Route>
         <Route path={`/info`} element={<Info />}></Route>
