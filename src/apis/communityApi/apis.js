@@ -16,9 +16,9 @@ export const getSearchInfo = async(searchContent) => {
 // 게시물 받아오는 함수
 export const getPostInfo = async() => {
     let post = [];
-    await axios.get('https://boomarble.com/posts', {
+    await axios.get('https://cors-anywhere.herokuapp.com/https://boomarble.com/posts', {
         headers: {
-          'X-AUTH-TOKEN': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwYXJramltaW5AaHVmcy5hYy5rciIsInJvbGVzIjpbIlVTRVIiXSwiaWF0IjoxNzA1MTM5NTU1LCJleHAiOjE3MDU3NDQzNTV9.DpKl33LcFYc1jLUwpeRxt4z4KZGZZBBX7QbUXHpTnGk',
+          'X-AUTH-TOKEN': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMUBnbWFpbC5jb20iLCJyb2xlcyI6WyJVU0VSIl0sImlhdCI6MTcwNTQxMTkzNCwiZXhwIjoxNzA2MDE2NzM0fQ.t0PaVOz4OO1lY6Pj5cGDOQzL_vArxMbeT6EgHL0pDiE',
         }
       }).then((response)=>{
         post = response.data.communityLists;
