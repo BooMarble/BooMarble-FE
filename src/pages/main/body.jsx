@@ -6,7 +6,7 @@ function Body() {
   //캘린더
   const [date, setDate] = useState(new Date());
   const headers = {
-    'X-AUTH-TOKEN': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMUBnbWFpbC5jb20iLCJyb2xlcyI6WyJVU0VSIl0sImlhdCI6MTcwNDgxMTI5NywiZXhwIjoxNzA1NDE2MDk3fQ.cuY3iR5xtDlQ4XmLvxG_J0v1zBSRjDgQ5T7lk8Oim7o',}
+    'X-AUTH-TOKEN': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMUBnbWFpbC5jb20iLCJyb2xlcyI6WyJVU0VSIl0sImlhdCI6MTcwNTQxMTkzNCwiZXhwIjoxNzA2MDE2NzM0fQ.t0PaVOz4OO1lY6Pj5cGDOQzL_vArxMbeT6EgHL0pDiE',}
   const onChange = (newDate) => {
     setDate(newDate);};
   const tileContent = ({ date, view }) => {
@@ -45,6 +45,27 @@ function Body() {
     fetchPopularKeywords();
   }, []);
 
+  //인기 커뮤니티 글
+  const [hotPosts, setHotPosts] = useState([]);
+  useEffect(() => {
+    const fetchHotPosts = async () => {
+      try {
+        const response = await fetch('https://boomarble.com/hotPosts', {
+          headers: headers
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setHotPosts(data.hotPosts);
+        } else {
+          throw new Error('Failed to fetch data');
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }};
+    fetchHotPosts();
+  }, []);
+
+
   return (
     <div>
       <PopularKeywordsList>
@@ -62,6 +83,19 @@ function Body() {
           locale="en-US"
           tileContent={tileContent}
         />
+        <div>
+      <h2>커뮤니티 인기글</h2>
+        {hotPosts.map((post, index) => (
+          <div key={index}>
+             <h3>{post.communityTitle}</h3>
+    <ul>
+      {post.communityTagList.map((tag, tagIndex) => (
+        <li key={tagIndex}>{tag}</li>
+      ))}
+    </ul>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
