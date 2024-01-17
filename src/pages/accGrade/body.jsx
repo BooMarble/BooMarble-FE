@@ -36,7 +36,7 @@ function Body() {
       <Container>
       <h1>학점 인정 관련</h1>
         <DetailContainer>
-        {detailInfo.reviewAccGradeDTOList.map((review, index) => (
+        {detailInfo.reviewAccGradeDTOList&&detailInfo.reviewAccGradeDTOList.map((review, index) => (
           <DetailBox key={index}>
             <h2>{review.writer.nickname}</h2>
             <p>총 학점 {review.acceptedGrade}</p>

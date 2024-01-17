@@ -9,8 +9,8 @@ function Footer() {
     return(
         <FooterContainer>
 
-        <FooterLink as={Link} to='../community'>
-            <img src={community_img} alt="community"/>
+        <FooterLink as={Link} to='../posts'>
+            <img src={community_img} alt="posts"/>
         </FooterLink>
         <FooterLink as={Link} to= '../reviews'>
             <img src={review_img} alt="review"/>

@@ -21,8 +21,8 @@ import Activity from "./pages/activity"
 import Etc from "./pages/etc"
 import Message from "./pages/message"
 import UnivInfo from "./pages/univInfo"
-import Loading from './pages/loading';
-
+import Loading from './pages/loading'
+import Prediction from "./pages/prediction";
 
 function App() {
   return (
@@ -51,6 +51,7 @@ function App() {
         <Route path={`/reviews/:universityId/etc`} element={<Etc/>}></Route>
         <Route path={`/reviews/:universityId/message`} element={<Message/>}></Route>
         <Route path={`/reviews/:universityId/univinfo`} element={<UnivInfo/>}></Route>
+        <Route path={`/prediction`} element={<Prediction />}></Route>
       </Routes>
     </Router>
   );

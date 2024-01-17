@@ -34,7 +34,7 @@ function Body() {
       <Container>
       <h1>교내 활동</h1>
         <DetailContainer>
-        {detailInfo.reviewActivityDTOList.map((review, index) => (
+        {detailInfo.reviewActivityDTOList&&detailInfo.reviewActivityDTOList.map((review, index) => (
           <DetailBox key={index}>
             <h2>{review.writer.nickname}</h2>
             <p>활동 후기: {review.activities}</p>

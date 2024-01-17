@@ -35,7 +35,21 @@ export const MainDetailsWrapper = styled.div`
     color: #555;
     margin-bottom: 15px;
   }
+  #like {
+    position: absolute;
+    top: 70px;
+    left: 35px;
+    width: 20px;
+    height: 20px;
+    background-size: cover;
+  }
+  img {
+    width: 25px;
+    height: 25px;
+    display: block;
+  }
 `;
+
 
 export const RequirementWrapper = styled.div`
 background-color: #EEEEEE;

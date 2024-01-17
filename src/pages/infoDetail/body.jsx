@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom'; // React Router의 useParams를 사용하여 URL의 파라미터를 가져옴
+import { useParams, useNavigate, Link } from 'react-router-dom'; // React Router의 useParams를 사용하여 URL의 파라미터를 가져옴
 import axios from 'axios';
 import {liking, notLiking } from "../../apis/infoApi/apis";
 import likeBtn from"../../assets/images/likeBtn.png"
 import nonlikeBtn from"../../assets/images/nonlikeBtn.png"
 import {Container, DetailWrapper, MainDetailsWrapper, RequirementWrapper, EnglishContainer, JapaneseContainer, ChineseContainer, CostWrapper, ExtradetailWrapper} from './style';
+import chat_img from '../../assets/images/chat_img.png'
 function Body() {
   let {universityId} = useParams(); // URL에서 id 가져오기
   console.log({universityId});
@@ -48,8 +49,8 @@ function Body() {
     <DetailWrapper>
     <MainDetailsWrapper>
     <p id="like" onClick={isLikeOpen ? closeLike : openLike} 
-                        style={{ backgroundImage: isLikeOpen ? `url(${likeBtn})` : `url(${nonlikeBtn})` }}>
-                    </p>
+                        style={{ backgroundImage: isLikeOpen ? `url(${likeBtn})` : `url(${nonlikeBtn})` }}></p>
+    <Link to='../chat'><img src={chat_img}></img></Link>
     <h2>Basic Info</h2>
     <h3>유형</h3> 
     <p>{detailInfo.exType}</p>

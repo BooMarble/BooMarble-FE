@@ -8,8 +8,8 @@ function Header() {
         <HeaderLink as={Link} to='../mypage'>
             <img src={mypage} alt="mypage"/>
         </HeaderLink>
-        <HeaderLink as={Link} to= '/'>
-            <img src={alarm_icon} alt="alarm_icon"/>
+        <HeaderLink as={Link} to= '../prediction'>
+            <img src={alarm_icon} alt="prediction"/>
         </HeaderLink>
         </HeaderContainer>
     )
