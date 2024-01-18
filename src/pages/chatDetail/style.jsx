@@ -27,7 +27,7 @@ export const ChatDetailBody = styled.div`
     #msgBox{
         left: 50%;
         top: 50%;
-        transform: translate(-50%, 570%);
+        transform: translate(-50%, 540%);
         width: 95%;
         height: 40px;
         background-color: #eeeeee;
