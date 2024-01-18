@@ -23,6 +23,7 @@ import Message from "./pages/message"
 import UnivInfo from "./pages/univInfo"
 import Loading from './pages/loading'
 import Prediction from "./pages/prediction";
+import AfterLogin from "./pages/afterLogin"
 
 function App() {
   return (
@@ -52,6 +53,7 @@ function App() {
         <Route path={`/reviews/:universityId/message`} element={<Message/>}></Route>
         <Route path={`/reviews/:universityId/univinfo`} element={<UnivInfo/>}></Route>
         <Route path={`/prediction`} element={<Prediction />}></Route>
+        <Route path={`/afterLogin`} element={<AfterLogin />}></Route>
       </Routes>
     </Router>
   );

@@ -29,10 +29,9 @@ display: flex;
 flex-direction: column;
 align-items: center;
 background-color: #a0a0a0;
-justify-content: center; /* 수직 가운데 정렬을 위한 추가 */
-height: 100vh; /* 화면 높이를 기준으로 가운데 정렬 */
+justify-content: center;
+height: 100vh;
 
-/* 아래 스타일은 화면 크기에 따라 이미지와 버튼 간격을 조절할 수 있습니다 */
 gap: 20px; /* 이미지와 버튼 사이의 간격 설정 */
 `;
 

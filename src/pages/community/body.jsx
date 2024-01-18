@@ -155,6 +155,7 @@ function Body() {
                 placeholder="검색"
                 // onChange={onChangeSearchContent}
             />
+            <Link to="/communityPosting"><button >글쓰기</button></Link>
             <div id="postBox" onClick={handleOnClick}></div>
         </CommunityBody>
     )

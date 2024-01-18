@@ -1,7 +1,23 @@
 import styled from "styled-components";
-import filterBtn from "../../assets/images/filterBtn.png"
 
 export const CommunityBody = styled.div`
+    
+    button {
+        padding: 10px;
+        margin-top: 10px;
+        margin-left: 290px;
+        background-color: #E2E2E2;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        &:hover {
+        background-color: #2980b9;
+        }
+        margin-top: 10px;
+        }
+
     #searchInput{
         width: 350px;
         height: 25px;
@@ -15,34 +31,6 @@ export const CommunityBody = styled.div`
         margin-left: 5px;
         margin-bottom: 0;
         background-color: #eeeeee;
-    }
-    #filterBtn{
-        position: relative;
-        display: flex;
-        justify-content: right;
-        height: 40px;
-        width: 40px;
-        background-repeat: no-repeat;
-        background-size: 65%;
-        background-position: right;
-        background-image: url(${filterBtn});
-        margin-top: 0;
-        margin-bottom: 0;
-    }
-    #sorting{
-        margin-top: 15px;
-        position: relative;
-        display: flex;
-        justify-content: right;
-        p:nth-child(1){
-            background-color: #dcdcdc;
-            padding: 5px;
-            border-radius: 5px;
-            margin: 0;
-        }
-        p:nth-child(3){
-
-        }        
     }
     #sortingList{
         position: absolute;

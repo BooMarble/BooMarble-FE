@@ -15,7 +15,7 @@ function Body() {
             console.log(ACCESS_TOKEN);
 
             localStorage.setItem("token", ACCESS_TOKEN); 
-            navigate(`/`)
+            navigate(`/afterLogin`)
         })
         .catch((err) => {
             console.log("소셜 로그인 에러", err);
