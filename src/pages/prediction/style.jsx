@@ -22,9 +22,12 @@ export const Select = styled.select`
 `;
 
 export const Input = styled.input`
-  width: 100%;
+  width: 95%;
   padding: 8px;
   margin-bottom: 16px;
+  border-radius: 20px;
+  background-color: #eeeeee;
+  border-color: none;
 `;
 
 export const Button = styled.button`

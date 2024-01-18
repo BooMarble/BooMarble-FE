@@ -1,6 +1,6 @@
 import useInput from "../../hooks/useInput";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import { getPostInfo, getSearchInfo } from "../../apis/communityApi/apis";
 import { CommunityBody } from "./style";
 
@@ -53,24 +53,6 @@ function Body() {
     // }, [searchContent]);
 
     // 정렬 방식 선택
-    // 정렬 드롭다운 상태를 관리하는 state
-    const [isSortingOpen, setSortingOpen] = useState(false)
-
-    // 정렬 드롭다운 여는 함수
-    function openSorting(){
-        setSortingOpen(true)
-    }
-
-    // 정렬 드롭다운 닫는 함수
-    function closeSorting(){
-        setSortingOpen(false)
-    }
-
-    // 정렬 드롭다운 항목 선택 시 처리할 함수
-    function handleSortingClick(item){
-        console.log(`선택된 항목: ${item}`);
-    }
-
     // post 가져오기
     const navigate = useNavigate();
     const [post, setPost] = useState([]);
@@ -173,18 +155,6 @@ function Body() {
                 placeholder="검색"
                 // onChange={onChangeSearchContent}
             />
-            {/* <p id="filterBtn"></p> */}
-            <div id="sorting">
-                    <p onClick={isSortingOpen ? closeSorting : openSorting}>
-                        {isSortingOpen ? '최신순▲' : '최신순▼'}
-                    </p>
-                    {isSortingOpen && (
-                        <div id="sortingList">
-                            <p onClick={() => handleSortingClick('최신순')}>최신순</p>
-                            <p onClick={() => handleSortingClick('인기순')}>인기순</p>
-                        </div>
-                    )}
-            </div>
             <div id="postBox" onClick={handleOnClick}></div>
         </CommunityBody>
     )

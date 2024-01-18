@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { fetchCountries, getLangRegion, postEnglishUser, postJapaneseUser, postChineseUser } from "../../apis/predictionApi/apis";
-import {FormContainer,Label,Select,Button,Container,} from "./style";
+import {FormContainer,Label,Select,Button,Container,Input} from "./style";
 function Body() {
     // 드롭다운들 담을 곳
     const [countries, setCountries] = useState([]);
@@ -170,22 +170,22 @@ function Body() {
             <Container>
             {countryFlag === 1 && (
                 <div id="english">
-                    <label htmlFor="semesterInput">Semester</label>
-                    <input
+                    <Label htmlFor="semesterInput">Semester</Label>
+                    <Input
                         type="text"
                         id="semesterInput"
                         value={semester}
                         onChange={(e) => setSemester(e.target.value)}
                     />
-                    <label htmlFor="gradeInput">Grade</label>
-                    <input
+                    <Label htmlFor="gradeInput">Grade</Label>
+                    <Input
                         type="text"
                         id="gradeInput"
                         value={grade}
                         onChange={(e) => setGrade(e.target.value)}
                     />
-                    <label htmlFor="testTypeDropdown">Test Type</label>
-                    <select
+                    <Label htmlFor="testTypeDropdown">Test Type</Label>
+                    <Select
                         id="testTypeDropdown"
                         onChange={(e) => setTestType(e.target.value)}
                         value={testType}
@@ -194,9 +194,9 @@ function Body() {
                         <option value="IBT">IBT</option>
                         <option value="TOEFL">TOEFL</option>
                         <option value="IELTS">IELTS</option>
-                    </select>
-                    <label htmlFor="scoreInput">Score</label>
-                    <input
+                    </Select>
+                    <Label htmlFor="scoreInput">Score</Label>
+                    <Input
                         type="text"
                         id="scoreInput"
                         value={score}
@@ -208,85 +208,91 @@ function Body() {
 
             {countryFlag === 2 && (
                 <div id="japanese">
-                    <label htmlFor="semesterInput">Semester</label>
-                    <input
+                    <Label htmlFor="semesterInput">Semester</Label>
+                    <Input
                         type="text"
                         id="semesterInput"
                         value={semester}
                         onChange={(e) => setSemester(e.target.value)}
                     />
-                    <label htmlFor="gradeInput">Grade</label>
-                    <input
+                    <Label htmlFor="gradeInput">Grade</Label>
+                    <Input
                         type="text"
                         id="gradeInput"
                         value={grade}
                         onChange={(e) => setGrade(e.target.value)}
                     />
-                    <label htmlFor="levelDropdown">Level</label>
-                    <select
+                    <Label htmlFor="levelDropdown">Level</Label>
+                    <Select
                         id="levelDropdown"
                         onChange={(e) => setLevel(e.target.value)}
-                        value={testType}
+                        value={level}
                     >
-                        <option value="">Select Test Type</option>
+                        <option value="">Select Level</option>
                         <option value="N1">N1</option>
                         <option value="N2">N2</option>
                         <option value="N3">N3</option>
                         <option value="N4">N4</option>
                         <option value="N5">N5</option>
-                    </select>
-                    <label htmlFor="scoreInput">Score</label>
-                    <input
+                    </Select>
+                    <Label htmlFor="scoreInput">Score</Label>
+                    <Input
                         type="text"
                         id="scoreInput"
                         value={score}
                         placeholder="점수를 입력하세요"
                         onChange={(e) => setScore(e.target.value)}
                     />
-                    <input
-                        type="text"
-                        id="scoreInput"
-                        value={score}
-                        placeholder="점수를 입력하세요"
-                        onChange={(e) => setScore(e.target.value)}/>
-                    <label htmlFor="recommendationLetterDropdown">Recommendation Letter</label>
-                   <select
-                    id="recommendationLetterDropdown"
-                    onChange={(e) => setRecommendationLetter(e.target.value === 'true')}
-                    value={recommendationLetter ? 'true' : 'false'}
+                    <Label htmlFor="recommendationLetterDropdown">Recommendation Letter</Label>
+                    <Select
+                     id="recommendationLetterDropdown"
+                     onChange={(e) => setRecommendationLetter(e.target.value === 'true')}
+                     value={recommendationLetter ? 'true' : 'false'}
 >
                    <option value="">Select Recommendation Letter</option>
                    <option value="true">Yes</option>
                    <option value="false">No</option>
-                   </select>
+                   </Select>
                 </div>
             )}
             {countryFlag === 3 && (
                 <div id="chinese">
-                    <label htmlFor="semesterInput">Semester</label>
-                    <input
+                    <Label htmlFor="semesterInput">Semester</Label>
+                    <Input
                         type="text"
                         id="semesterInput"
                         value={semester}
                         onChange={(e) => setSemester(e.target.value)}
                     />
-                    <label htmlFor="gradeInput">Grade</label>
-                    <input
+                    <Label htmlFor="gradeInput">Grade</Label>
+                    <Input
                         type="text"
                         id="gradeInput"
                         value={grade}
                         onChange={(e) => setGrade(e.target.value)}
                     />
-                    <label htmlFor="levelDropdown">Level</label>
-                    <label htmlFor="scoreInput">Score</label>
-                    <input
+                    <Label htmlFor="levelDropdown">Level</Label>
+                    <Select
+                        id="levelDropdown"
+                        onChange={(e) => setLevel(e.target.value)}
+                        value={level}
+                    >
+                        <option value="">Select Level</option>
+                        <option value="1급">1급</option>
+                        <option value="2급">2급</option>
+                        <option value="3급">3급</option>
+                        <option value="4급">4급</option>
+                        <option value="5급">5급</option>
+                    </Select>
+                    <Label htmlFor="scoreInput">Score</Label>
+                    <Input
                         type="text"
                         id="scoreInput"
                         value={score}
                         placeholder="점수를 입력하세요"
                         onChange={(e) => setScore(e.target.value)}
                     />
-                    <select
+                    <Select
                         id="chineseTypeDropdown"
                         onChange={(e) => setChineseType(e.target.value)}
                         value={chineseType}>
@@ -294,24 +300,24 @@ function Body() {
                         <option value="LT">LT</option>
                         <option value="UG">UG</option>
                         <option value="etc">etc</option>
-                    </select>
-                    <select
+                    </Select>
+                    <Select
                         id="testType"
                         onChange={(e) => setTestType(e.target.value)}
                         value={testType}>
                         <option value="">Select Test Type</option>
                         <option value="HSK">HSK</option>
                         <option value="TOCFL">TOCFL</option>
-                    </select>
+                    </Select>
                 </div>
             )}
             </Container>
             <Button type="submit" id="completeBtn">Search</Button>   
-              {/* 최종 결과 표시 */}
+              {/*Result*/}
               {searchResult && searchResult.numOfApplicant !== undefined && (
     <div>
         <p>지원자 수: {searchResult.numOfApplicant}</p>
-        {/* 랭킹 정보 표시 */}
+        {/*rangkings*/}
         {searchResult.rankings && searchResult.rankings.map((ranking, index) => (
             <div key={index}>
                 <p>Score: {ranking.score}</p>
@@ -320,7 +326,7 @@ function Body() {
                 <p>User: {ranking.user.toString()}</p>
             </div>
         ))}
-        {/* 주의사항 표시 */}
+        {/*precautions*/}
         <ul>
             {precautions && precautions.map((precaution, index) => (
                 <li key={index}>{precaution}</li>
