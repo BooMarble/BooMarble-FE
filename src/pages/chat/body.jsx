@@ -1,23 +1,41 @@
 import { useNavigate } from "react-router-dom";
-import useChatRoom from "../../apis/chatRoomApi/apis";
+import { getChatInfo } from "../../apis/chatListApi/apis";
+import { useEffect, useState } from "react";
 
 function Body() {
     const navigate = useNavigate();
-    // 임의로 지정한 상대방 id <-- 나중에 다른 페이지에서는 변경 필요
-    const anotherUserId = 3;
 
-    const createChatRoom = useChatRoom(anotherUserId);
+    // // chatInfo 가져오기
+    // const [roomName, setRoomName] = useState('');
+    // const [roomId, setRoomId] = useState('');
+    // const [lastMsg, setLastMsg] = useState('');
+    // const [dayBefore, setDayBefore] = useState('');
+    // const [unReadCount, setUnReadCount] = useState('');
 
-    const handleChatClick = async (e) => {
-        const order = e.target.id;
-        if (order === 'chat') {
-            // 최초 접속이라면 -> 채팅방 생성하고 채팅 상세 페이지로 넘어가서 채팅방 입장
-            createChatRoom(anotherUserId)
-            // 최초 접속이 아니라면 -> 채팅 상세 페이지로 넘어가서 채팅방 입장
-        }
+    const [chatLists, setChatLists] = useState([]);
+
+    const loadChatInfo = async() => {
+        const chatInfo = await getChatInfo();
+        setChatLists(chatInfo)
     }
+
+    useEffect(() => {
+        loadChatInfo();
+    },[])
+
     return(
-        <p id="chat" onClick={handleChatClick}>부마블</p>
+        <div>
+            {chatLists.map((chatPost, index) => (
+                <div id={`${chatPost.chatRoomId}`} key={index}>
+                    <p>{chatPost.roomName}</p>
+                    <p>{chatPost.lastMessage}</p>
+                    <p>{chatPost.createAt}</p>
+                    <p>{chatPost.dayBefore}</p>
+                    <p>{chatPost.unreadCount}</p>
+                </div>
+            )) }
+        </div>
+
     )
 }
 
