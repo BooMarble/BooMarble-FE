@@ -12,22 +12,22 @@ export const ChatDetailBody = styled.div`
         background-color: #eeeeee;
         padding: 10px;
         margin: 0;
-        border-radius: 20px;
+        border-radius: 15px;
         display: block;
-        height: 30px;
-        font-size: 140%;
+        height: 20px;
+        font-size: 100%;
         font-weight: 500%;
         margin-bottom: 15px;
     }
     #msgTime{
         display: block;
-        font-size: 100%;
+        font-size: 60%;
         margin-left: 10px;
     }
     #msgBox{
         left: 50%;
         top: 50%;
-        transform: translate(-50%, 500%);
+        transform: translate(-50%, 450%);
         width: 95%;
         height: 40px;
         background-color: #eeeeee;
