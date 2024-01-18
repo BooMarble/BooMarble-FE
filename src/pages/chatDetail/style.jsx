@@ -1,7 +1,33 @@
 import styled from "styled-components";
 
 export const ChatDetailBody = styled.div`
+    #chattingContainer{
+        height: 620px;
+        overflow: scroll;
+    }
+    #msgContainer{
+        display: flex;
+    }
+    #msgField{
+        background-color: #eeeeee;
+        padding: 10px;
+        margin: 0;
+        border-radius: 20px;
+        display: block;
+        height: 30px;
+        font-size: 140%;
+        font-weight: 500%;
+        margin-bottom: 15px;
+    }
+    #msgTime{
+        display: block;
+        font-size: 100%;
+        margin-left: 10px;
+    }
     #msgBox{
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, 500%);
         width: 95%;
         height: 40px;
         background-color: #eeeeee;
@@ -9,17 +35,17 @@ export const ChatDetailBody = styled.div`
         display: flex;
         overflow: scroll;
         padding: 10px;
-        transform: translateY(420px);     
+        position: fixed;  
     }
     input{
-            width: 80%;
-            height: 25px;
-            border: none;
-            outline: none;
-            font-size: 140%;
-            background-color: transparent;
-            padding: 5px;
-            overflow: hidden;
+        width: 80%;
+        height: 25px;
+        border: none;
+        outline: none;
+        font-size: 140%;
+        background-color: transparent;
+        padding: 5px;
+        overflow: hidden;
     }
     button{
         border: none;

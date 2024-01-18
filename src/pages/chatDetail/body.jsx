@@ -87,13 +87,14 @@ function Body() {
     }
     return(
         <ChatDetailBody>
-            {chatList.map((chatMsg, index) => (
-                <div id={`${chatMsg.userId}`} key={index}>
-                    <p>{chatMsg.nickname}</p>
-                    <p>{chatMsg.message}</p>
-                    <p>{chatMsg.createdAt.slice(11)}</p>
-                </div>
-            ))}
+            <div id="chattingContainer">
+                {chatList.map((chatMsg, index) => (
+                    <div id="msgContainer" key={index}>
+                        <p id="msgField">{chatMsg.message}</p>
+                        <p id="msgTime">{chatMsg.createdAt.slice(11)}</p>
+                    </div>
+                ))}
+            </div>
             <form id="msgBox" onSubmit={handleOnSubmit}>
                 <input 
                     type="text"
