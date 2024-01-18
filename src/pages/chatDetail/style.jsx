@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const ChatDetailBody = styled.div`
     #chattingContainer{
-        height: 620px;
+        height: 670px;
         overflow: scroll;
     }
     #msgContainer{
@@ -27,7 +27,7 @@ export const ChatDetailBody = styled.div`
     #msgBox{
         left: 50%;
         top: 50%;
-        transform: translate(-50%, 420%);
+        transform: translate(-50%, 590%);
         width: 95%;
         height: 40px;
         background-color: #eeeeee;
